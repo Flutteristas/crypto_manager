@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/view/accountList.dart';
 import 'package:password_manager/view/profile.dart';
 
+import 'accountList.dart';
+import 'profile.dart';
+
 class Home extends StatefulWidget{
 
   @override
@@ -15,7 +18,6 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-
     controller = TabController(length: 2, vsync: this);
   }
 
@@ -28,22 +30,22 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      body: _buildTabBarView(),
+      bottomNavigationBar: _buildNavigationBar(),
     );
   }
 
-  Widget _buildBody(){
-    return TabBarView(children: 
-    <Widget>[
-      AccountList(),
-      Profile(),
-    ],
-    controller: controller,
+  Widget _buildTabBarView(){
+    return TabBarView(
+      children: <Widget>[
+        AccountList(),
+        Profile(),
+      ],
+      controller: controller,
     );
   }
 
-  Widget _buildBottomNavigationBar(){
+  Widget _buildNavigationBar(){
     return Material(
       child: TabBar(
         tabs: <Tab>[

@@ -23,7 +23,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-  return 'User signed in $user';
+  return 'User authenticaded $user';
 }
 
 void signOutGoogle() async{

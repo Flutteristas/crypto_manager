@@ -36,9 +36,10 @@ class LoginState extends State<Login>{
       onPressed: (){
         signInWithGoogle().whenComplete(() {
           Navigator.push(context, MaterialPageRoute(
-            builder: (context) => Home(),
+            builder: (context) => new Home(),
           ));
-        });
+        }
+        );
       },
       
       borderSide: BorderSide(color: Colors.blue),
