@@ -1,6 +1,6 @@
 # password_manager
 
-A new Flutter project.
+Application that manages accounts and passwords
 
 ## Getting Started
 
