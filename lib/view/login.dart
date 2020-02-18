@@ -22,7 +22,7 @@ class LoginState extends State<Login>{
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset('assets/images/lock_logo.png', height: 400),
+          Image.asset('assets/images/lock_logo.png', height: 200),
           _buildGoogleSignIn(),
           SizedBox(height: 25),
           _buildPhoneSignIn(),
@@ -33,15 +33,13 @@ class LoginState extends State<Login>{
 
   Widget _buildGoogleSignIn(){
     return OutlineButton(
-      onPressed: (){
-        signInWithGoogle().whenComplete(() {
+      onPressed: () async {
+        bool res = await AuthProvider().signInWithGoogle();
+        if(res)          
           Navigator.push(context, MaterialPageRoute(
             builder: (context) => new Home(),
-          ));
-        }
-        );
-      },
-      
+          ));        
+      },      
       borderSide: BorderSide(color: Colors.blue),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       highlightElevation: 0,
@@ -49,7 +47,7 @@ class LoginState extends State<Login>{
       highlightColor: Colors.lightBlue,
       splashColor: Colors.lightBlue,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -72,7 +70,10 @@ class LoginState extends State<Login>{
 
   Widget _buildPhoneSignIn(){
     return OutlineButton(
-      onPressed: (){},
+      onPressed: (){
+
+      },
+
       borderSide: BorderSide(color: Colors.blue),
       highlightElevation: 0,
       highlightedBorderColor: Colors.white,
@@ -80,7 +81,7 @@ class LoginState extends State<Login>{
       splashColor: Colors.lightBlue,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,

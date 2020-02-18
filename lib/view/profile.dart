@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/view/home.dart';
+import 'package:password_manager/controller/sign_in.dart';
+import 'package:password_manager/view/login.dart';
 
 class Profile extends StatefulWidget{
 
@@ -34,6 +36,39 @@ class ProfileState extends State<Profile>{
           ]
         ),
       ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            _buildSignOutButton(),
+          ],
+        ),
+      ),
     );
   }
+
+  Widget _buildSignOutButton(){
+    return OutlineButton(
+      onPressed: () async {
+        AuthProvider() .signOutGoogle();
+        Navigator.push(context, MaterialPageRoute(
+           builder: (context) => Login(),
+        ));
+      },
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+              Center(
+                child: Text('Sign Out'),
+              )
+          ],
+        ),
+      ),
+    );
+  }
+
 }
