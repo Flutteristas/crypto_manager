@@ -49,22 +49,25 @@ class ProfileState extends State<Profile>{
   }
 
   Widget _buildSignOutButton(){
-    return OutlineButton(
+    return RaisedButton(
       onPressed: () async {
         AuthProvider() .signOutGoogle();
         Navigator.push(context, MaterialPageRoute(
-           builder: (context) => Login(),
+          builder: (context) => Login(),
         ));
       },
+      color: Colors.purple,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-              Center(
-                child: Text('Sign Out'),
-              )
+            Center(
+              child: Text('Sign Out', style: TextStyle(color: Colors.white)),
+            )
           ],
         ),
       ),
