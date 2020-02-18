@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/view/home.dart';
 
-class Account extends StatefulWidget{
+class Profile extends StatefulWidget{
 
   @override
-  State<StatefulWidget> createState() => new AccountState();
+  State<StatefulWidget> createState() => new ProfileState();
 }
 
-class AccountState extends State<Account>{
+class ProfileState extends State<Profile>{
 
   HomeState home = new HomeState();
 
   @override
   Widget build(BuildContext context) {
-    return _buildAccountInfo();
+    return _buildProfile();
   }
 
-  Widget _buildAccountInfo(){
+  Widget _buildProfile(){
     return Scaffold(
       body: _buildInfo(),
-      bottomNavigationBar: home.buildBottomNavigationBar(),
     );
   }
 

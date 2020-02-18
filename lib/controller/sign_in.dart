@@ -5,7 +5,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 
 
-Future<String> signInWithGoogle() async{
+ Future<String> signInWithGoogle() async{
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
   final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
@@ -23,7 +23,7 @@ Future<String> signInWithGoogle() async{
   final FirebaseUser currentUser = await _auth.currentUser();
   assert(user.uid == currentUser.uid);
 
-  return 'signInWithGoogle succeded: $user';
+  return 'User signed in $user';
 }
 
 void signOutGoogle() async{

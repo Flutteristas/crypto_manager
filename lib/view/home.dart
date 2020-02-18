@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/view/account.dart';
+import 'package:password_manager/view/accountList.dart';
+import 'package:password_manager/view/profile.dart';
 
 class Home extends StatefulWidget{
 
@@ -7,61 +8,54 @@ class Home extends StatefulWidget{
   State<StatefulWidget> createState() => new HomeState();
 }
 
-class HomeState extends State<Home>{
+class HomeState extends State<Home> with SingleTickerProviderStateMixin{
 
-  int selectedindex = 0;
-  static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> widgetOptions = <Widget>[
-    Text(
-    'Index 0: Home',
-    style: optionStyle,
-    ),
-    Text(
-      'Index 1: Account',
-      style: optionStyle,
-    ),
-  ];
+  TabController controller;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildBody(),
-      bottomNavigationBar: buildBottomNavigationBar(),
+      bottomNavigationBar: _buildBottomNavigationBar(),
     );
   }
 
   Widget _buildBody(){
-    return Center(
-      child: widgetOptions.elementAt(selectedindex),
+    return TabBarView(children: 
+    <Widget>[
+      AccountList(),
+      Profile(),
+    ],
+    controller: controller,
     );
   }
 
-  void onItemTapped(int index){
-    setState(() {
-      selectedindex = index;
-      if (index == 0) {
-        Navigator.push(context, MaterialPageRoute(
-        builder: (context) => new Account(),
-      ));
-      }
-    });
-  }
-
-  Widget buildBottomNavigationBar(){
-    return BottomNavigationBar(
-      items: const <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          title: Text('Home'),
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle,),
-          title: Text('Account'),
-        ),
-      ],
-      currentIndex: selectedindex,
-      selectedItemColor: Colors.green,
-      onTap: onItemTapped,
+  Widget _buildBottomNavigationBar(){
+    return Material(
+      child: TabBar(
+        tabs: <Tab>[
+          Tab(
+            icon: Icon(Icons.home, color: Colors.blue),
+          ),
+          Tab(
+            icon: Icon(Icons.account_circle, color: Colors.blue),
+          ),
+        ],
+        controller: controller,
+      ),
     );
   }
 
