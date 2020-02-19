@@ -56,7 +56,7 @@ class ProfileState extends State<Profile>{
            builder: (context) => Login(),
         ));
       },
-      co
+      color: Colors.purple,
       child: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
         child: Row(
