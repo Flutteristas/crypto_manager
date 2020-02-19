@@ -49,22 +49,23 @@ class ProfileState extends State<Profile>{
   }
 
   Widget _buildSignOutButton(){
-    return OutlineButton(
+    return RaisedButton(
       onPressed: () async {
         AuthProvider() .signOutGoogle();
         Navigator.push(context, MaterialPageRoute(
            builder: (context) => Login(),
         ));
       },
+      co
       child: Padding(
         padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-              Center(
-                child: Text('Sign Out'),
-              )
+            Center(
+              child: Text('Sign Out'),
+            )
           ],
         ),
       ),
