@@ -5,13 +5,13 @@ import 'package:password_manager/view/profile.dart';
 import 'accountList.dart';
 import 'profile.dart';
 
-class Home extends StatefulWidget{
+class MainWidget extends StatefulWidget{
 
   @override
-  State<StatefulWidget> createState() => new HomeState();
+  State<StatefulWidget> createState() => new MainWidgetState();
 }
 
-class HomeState extends State<Home> with SingleTickerProviderStateMixin{
+class MainWidgetState extends State<MainWidget> with SingleTickerProviderStateMixin{
 
   TabController controller;
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/view/home.dart';
-import 'package:password_manager/controller/sign_in.dart';
+import 'package:password_manager/login/sign_in.dart';
 import 'package:password_manager/view/login.dart';
 
 class Profile extends StatefulWidget{
@@ -10,8 +9,6 @@ class Profile extends StatefulWidget{
 }
 
 class ProfileState extends State<Profile>{
-
-  HomeState home = new HomeState();
 
   @override
   Widget build(BuildContext context) {

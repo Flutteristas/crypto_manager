@@ -24,7 +24,6 @@ class AuthProvider {
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
 
-    print('O usuario logado é  $_auth.currentUser()' );
     return await _auth.currentUser();
   
   }
