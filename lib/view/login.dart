@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:password_manager/login/sign_in.dart';
 
 import 'package:password_manager/view/mainWidget.dart';
@@ -12,14 +11,8 @@ class Login extends StatefulWidget{
 
 class LoginState extends State<Login>{
 
-  void isLoggedIn(){
-    GoogleSignInAccount user = AuthProvider().googleSignIn.currentUser;
-    print(user);
-  }
-
   @override
   Widget build(BuildContext context) {
-    isLoggedIn();
     return Scaffold(
       body: _loginHomePage(),
     );
