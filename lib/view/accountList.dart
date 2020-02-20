@@ -12,6 +12,10 @@ class AccountListState extends State<AccountList>{
       body: Container(
         color: Colors.white,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(Icons.add),
+      ),
     );
   }
 }

@@ -5,33 +5,28 @@ class AuthProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  Future<FirebaseUser> signInWithGoogle() async{
+  
+    final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
-  Future<bool> signInWithGoogle() async{
-    try{
-      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      idToken: googleSignInAuthentication.idToken, 
+      accessToken: googleSignInAuthentication.accessToken,
+    );
 
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
-        idToken: googleSignInAuthentication.idToken, 
-        accessToken: googleSignInAuthentication.accessToken,
-      );
+    final AuthResult authResult = await _auth.signInWithCredential(credential);
+    final FirebaseUser user = authResult.user;
 
-      final AuthResult authResult = await _auth.signInWithCredential(credential);
-      final FirebaseUser user = authResult.user;
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
 
-      assert(!user.isAnonymous);
-      assert(await user.getIdToken() != null);
+    final FirebaseUser currentUser = await _auth.currentUser();
+    assert(user.uid == currentUser.uid);
 
-      final FirebaseUser currentUser = await _auth.currentUser();
-      assert(user.uid == currentUser.uid);
-
-      if (user == null)
-        return false;
-      return true;
-    } catch (e) {
-      return false;
-    }
-    
+    print('O usuario logado é  $_auth.currentUser()' );
+    return await _auth.currentUser();
+  
   }
 
   void signOutGoogle() async{
@@ -39,4 +34,5 @@ class AuthProvider {
 
     print('User Signed Out');
   }
+
 }

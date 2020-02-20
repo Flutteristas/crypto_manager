@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:password_manager/controller/sign_in.dart';
 
 import 'home.dart';
@@ -9,12 +11,17 @@ class Login extends StatefulWidget{
 }
 
 class LoginState extends State<Login>{
+
+  GoogleSignInAccount _currentUser;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _loginHomePage(),
-    );
+      print('O usuario logado é $_currentUser');
+      return Scaffold(
+        body: _loginHomePage(),
+      );
   }
+
 
   Widget _loginHomePage(){
     return Center(
@@ -34,8 +41,8 @@ class LoginState extends State<Login>{
   Widget _buildGoogleSignIn(){
     return OutlineButton(
       onPressed: () async {
-        bool res = await AuthProvider().signInWithGoogle();
-        if(res)          
+        FirebaseUser user = await AuthProvider().signInWithGoogle();
+        if(user != null)          
           Navigator.push(context, MaterialPageRoute(
             builder: (context) => new Home(),
           ));        

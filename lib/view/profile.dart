@@ -31,8 +31,8 @@ class ProfileState extends State<Profile>{
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.blue[600].withOpacity(0.5),
-            Colors.blue[600]
+            Colors.blue[600].withOpacity(0.4),
+            Colors.blue[600].withOpacity(0.8)
           ]
         ),
       ),
