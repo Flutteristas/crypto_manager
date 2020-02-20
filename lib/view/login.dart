@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:password_manager/login/sign_in.dart';
 
-import 'package:password_manager/view/mainWidget.dart';
+import 'package:password_manager/login/sign_in.dart';
+import 'package:password_manager/view/listOfWidget.dart';
 
 class Login extends StatefulWidget{
   @override

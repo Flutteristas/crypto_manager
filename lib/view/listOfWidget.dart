@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/view/accountList.dart';
+import 'package:password_manager/view/home.dart';
 import 'package:password_manager/view/profile.dart';
-
-import 'accountList.dart';
-import 'profile.dart';
 
 class MainWidget extends StatefulWidget{
 
