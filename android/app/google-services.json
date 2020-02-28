@@ -1,42 +1,63 @@
 {
   "project_info": {
-    "project_number": "449403738671",
-    "firebase_url": "https://password-manager-cb045.firebaseio.com",
-    "project_id": "password-manager-cb045",
-    "storage_bucket": "password-manager-cb045.appspot.com"
+    "project_number": "396363463910",
+    "firebase_url": "https://teste-a8f25.firebaseio.com",
+    "project_id": "teste-a8f25",
+    "storage_bucket": "teste-a8f25.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:449403738671:android:7e45ec5471e3109c3704da",
+        "mobilesdk_app_id": "1:396363463910:android:0f5f90e1df63bf37908f27",
         "android_client_info": {
-          "package_name": "com.example.password_manager"
+          "package_name": "com.example.myapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "449403738671-uuqc6dfucoof0ftjl7vgt3700335cbph.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.password_manager",
-            "certificate_hash": "06544e77f764d53de75284f4b08088442925a9e5"
-          }
-        },
-        {
-          "client_id": "449403738671-d3bq3tsoaro92ikufoh1macltji385cv.apps.googleusercontent.com",
+          "client_id": "396363463910-fuqht0ncuu3veg15mgrmpo1vrqa9isbc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCco0ZlWnlu9K_JnH2yw9d6b7F_g6kvOhI"
+          "current_key": "AIzaSyCI2PFXQXYM2mllQpkOjqcRv8UQa8cWTZc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "449403738671-d3bq3tsoaro92ikufoh1macltji385cv.apps.googleusercontent.com",
+              "client_id": "396363463910-fuqht0ncuu3veg15mgrmpo1vrqa9isbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396363463910:android:cd7f491a71802b5f908f27",
+        "android_client_info": {
+          "package_name": "com.example.password_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396363463910-fuqht0ncuu3veg15mgrmpo1vrqa9isbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCI2PFXQXYM2mllQpkOjqcRv8UQa8cWTZc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396363463910-fuqht0ncuu3veg15mgrmpo1vrqa9isbc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
