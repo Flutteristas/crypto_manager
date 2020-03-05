@@ -14,33 +14,11 @@ class AccountListState extends State<AccountList>{
   }
 
   Widget _buildListWheel(){
-    return Center(
-      child: ListWheelScrollView(
-        itemExtent: 80, 
-        diameterRatio: 1.6,
-        children: <Widget>[
-          Container(
-            width: 330,
-            color: Colors.black,
-          ),
-          Container(
-            width: 330,
-            color: Colors.green,
-          ),
-          Container(
-            width: 330,
-            color: Colors.purple,
-          ),
-          Container(
-            width: 330,
-            color: Colors.red,
-          ),
-          Container(
-            width: 330,
-            color: Colors.blue,
-          ),
-        ]
-      ),
+    return ListTile(
+      title: Text('Url'),
+      subtitle: Text('username'),
+      trailing: Icon(Icons.menu),
+      leading: Icon(Icons.person_outline),
     );
   }
 }

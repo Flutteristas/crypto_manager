@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:password_manager/login/sign_in.dart';
-import 'package:password_manager/view/listOfWidget.dart';
 
 class Login extends StatefulWidget{
   @override
@@ -18,90 +15,59 @@ class LoginState extends State<Login>{
     );
   }
 
-
   Widget _loginHomePage(){
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.asset('assets/images/lock_logo.png', height: 200),
-          _buildGoogleSignIn(),
-          SizedBox(height: 25),
-          _buildPhoneSignIn(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildGoogleSignIn(){
-    return OutlineButton(
-      onPressed: () async {
-        FirebaseUser user = await AuthProvider().signInWithGoogle();
-        if(user != null)          
-          Navigator.push(context, MaterialPageRoute(
-            builder: (context) => new MainWidget(),
-          ));        
-      },      
-      borderSide: BorderSide(color: Colors.blue),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      highlightElevation: 0,
-      highlightedBorderColor: Colors.white,
-      highlightColor: Colors.lightBlue,
-      splashColor: Colors.lightBlue,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
+    return Container(
+      child: Form(
+        child: Column(          
           children: <Widget>[
-            Image.asset('assets/images/google_logo.png', height: 35),
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Text(
-                'Sign in with Google',  
-                style: TextStyle(
-                  fontSize: 20
-                ),
-              ),
-            ),
+            _buildEmailField(),
+            _buildPasswordField(),
+            _buildSubmitButton()
           ],
-        ),
+        ) 
       ),
     );
   }
 
-  Widget _buildPhoneSignIn(){
-    return OutlineButton(
+  Widget _buildEmailField(){
+    return TextFormField(
+      maxLines: 1,
+      decoration: new InputDecoration(
+        hintText: 'Email',
+        icon: Icon(
+          Icons.person,
+          color: Colors.blue,
+        )
+      ),
+    );
+  }
+
+  Widget _buildPasswordField(){
+    return TextFormField(
+      obscureText: true,
+      maxLines: 1,      
+      decoration: new InputDecoration(
+        labelText: 'Password',
+        icon: Icon(
+          Icons.lock,
+          color: Colors.blue,
+        )        
+      ),
+    );
+  }
+
+  Widget _buildSubmitButton(){
+    return RaisedButton(
       onPressed: (){
-
+        //AuthProvider().createUser();
       },
-
-      borderSide: BorderSide(color: Colors.blue),
-      highlightElevation: 0,
-      highlightedBorderColor: Colors.white,
-      highlightColor: Colors.lightBlue,
-      splashColor: Colors.lightBlue,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Image.asset('assets/images/phone_logo.png', height: 35),
-            Padding(
-              padding: EdgeInsets.only(left: 15),
-              child: Text(
-                'Sign in with Phone',
-                style: TextStyle(
-                  fontSize: 20
-                ),
-              ),
-            ),
-          ],
+      color: Colors.blue,
+      child: Text(
+        'Sign In', 
+        style: TextStyle(
+          color: Colors.white
         ),
-      )
+      ),
     );
   }
 }

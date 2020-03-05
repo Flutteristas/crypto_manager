@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/view/login.dart';
+import 'package:password_manager/view/home.dart';
 
 void main() => runApp(PasswordManager());
 

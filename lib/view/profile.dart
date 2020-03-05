@@ -38,31 +38,7 @@ class ProfileState extends State<Profile>{
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            _buildSignOutButton(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignOutButton(){
-    return RaisedButton(
-      onPressed: () async {
-        AuthProvider() .signOutGoogle();
-        Navigator.push(context, MaterialPageRoute(
-           builder: (context) => Login(),
-        ));
-      },
-      color: Colors.purple,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(5, 10, 5, 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Center(
-              child: Text('Sign Out'),
-            )
+            
           ],
         ),
       ),
