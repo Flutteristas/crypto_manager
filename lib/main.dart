@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/view/profileHome.dart';
+import 'package:password_manager/view/signHome.dart';
 import 'package:password_manager/view/signIn.dart';
 import 'package:password_manager/view/signUp.dart';
 
@@ -20,7 +21,7 @@ class PasswordManager extends StatelessWidget{
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Home(),
+      home: SignHome(),
     );
   }
 }
