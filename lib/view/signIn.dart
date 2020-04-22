@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/login/dbController.dart';
 
-class Home extends StatefulWidget{
+class SignIn extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => new HomeState();
+  State<StatefulWidget> createState() => new SignInState();
 }
 
-class HomeState extends State<Home>{
+class SignInState extends State<SignIn>{
 
   final formKey = new GlobalKey<FormState>();
   String _email;
@@ -18,11 +18,8 @@ class HomeState extends State<Home>{
   void validateAndSave(){
     final form = formKey.currentState;
     if (form.validate()){
-      form.save();
-      print('Form is valid. Email: $_email, Password: $_password');
+      form.save();    
       AuthProvider().createUser(_email, _password);
-    } else {
-      print('Form is invalid.  Email: $_email, Password: $_password');
     }
   }
 
