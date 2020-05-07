@@ -8,6 +8,8 @@ class SignUp extends StatefulWidget{
 class SignUpState extends State<SignUp>{
   @override
   Widget build(BuildContext context) {
-    return null;
+    return Scaffold(
+      
+    );
   }
 }
