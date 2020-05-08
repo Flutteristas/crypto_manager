@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/utils/ColorConverter.dart';
 import 'package:password_manager/view/accountsList.dart';
 import 'package:password_manager/view/profileSettings.dart';
 
@@ -37,7 +38,8 @@ class ProfileHomeState extends State<ProfileHome>{
   }
 
   Widget _buildBottomNavigationBar(){
-    return BottomNavigationBar(
+    return BottomNavigationBar(      
+      backgroundColor: ColorConverter().backgroundColor(),
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.book, color: Colors.lightGreen),
