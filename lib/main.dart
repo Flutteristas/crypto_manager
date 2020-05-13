@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/utils/ColorConverter.dart';
 import 'package:password_manager/view/accountsList.dart';
-import 'package:password_manager/view/profileHome.dart';
-import 'package:password_manager/view/profileSettings.dart';
 import 'package:password_manager/view/signHome.dart';
 import 'package:password_manager/view/signUp.dart';
 
@@ -15,12 +14,12 @@ class PasswordManager extends StatelessWidget{
       routes: {
         '/signHome': (context) => SignHome(),
         '/signUp': (context) => SignUp(),
-        '/profileHome': (context) => ProfileHome(),
-        '/profileSettings': (context) => ProfileSettings(),
         '/accountsList': (context) => AccountsList()
       },
       title: 'Password Manager',
       theme: ThemeData(        
+        primaryColor: ColorConverter().backgroundColor(),
+        canvasColor: ColorConverter().backgroundColor(),
         textTheme: Theme.of(context).textTheme.apply(
           bodyColor: Colors.white,
           displayColor: Colors.white
