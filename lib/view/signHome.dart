@@ -11,7 +11,7 @@ class SignHome extends StatelessWidget{
     final form = formKey.currentState;
     if (form.validate()){
       form.save();    
-      Navigator.of(context).pushNamed('/profileHome');
+      Navigator.of(context).pushNamed('/accountsList');
     }
   }
 
@@ -19,21 +19,14 @@ class SignHome extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(      
       resizeToAvoidBottomPadding: false,
-      body: Container(
-        color: ColorConverter().backgroundColor(),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Container(                
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,                                            
-                children: <Widget>[
-                  _homeTitle(),
-                  _buildForm(context),
-                ],
-              ),
-            ),
-          ),
+      body: Container(   
+        margin: EdgeInsets.all(32),             
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,                                            
+          children: <Widget>[
+            _homeTitle(),
+            _buildForm(context),
+          ],
         ),
       )
     );
@@ -51,40 +44,38 @@ class SignHome extends StatelessWidget{
   }
 
   Widget _buildForm(BuildContext context){
-    return Form(
-      key: formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          _buildEmailField(),
-          SizedBox(height: 16),
-          _buildPasswordField(),
-          _buildLoginButton(context),
-          _buildSignUpRow(context),
-        ],
+    return Container(
+      child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _buildEmailField(),
+            _buildPasswordField(),
+            _buildLoginButton(context),
+            _buildSignUpRow(context),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildEmailField(){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-      child: TextFormField( 
-        maxLines: 1,
-        decoration: InputDecoration(
-          prefixIcon: Icon(Icons.email, color: Colors.white),
-          labelText: 'Email',
-          labelStyle: TextStyle(color: Colors.white)
-        ),          
-        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,    
-        onSaved: (value) => _email = value,
-      ),
+    return TextFormField( 
+      maxLines: 1,
+      decoration: InputDecoration(
+        prefixIcon: Icon(Icons.email, color: Colors.white),
+        labelText: 'Email',
+        labelStyle: TextStyle(color: Colors.white)
+      ),          
+      validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,    
+      onSaved: (value) => _email = value,
     );
   }
 
   Widget _buildPasswordField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
       child: TextFormField(
         maxLines: 1,
         maxLength: 16,
@@ -102,7 +93,7 @@ class SignHome extends StatelessWidget{
 
   Widget _buildLoginButton(BuildContext context){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 50, 20, 0),
+      padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
       child: Container(
         height: 50,        
         child: RaisedButton(
@@ -113,7 +104,7 @@ class SignHome extends StatelessWidget{
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
           child: Ink(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(32),
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -141,27 +132,30 @@ class SignHome extends StatelessWidget{
   }
 
   Widget _buildSignUpRow(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(72, 24, 72, 0),
-      child: Container(
-        alignment: Alignment.center,     
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              'Don\'t have an account?'
-            ),
-            GestureDetector(
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 24, 0, 0), 
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Don\'t have an account?'
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+            child: GestureDetector(
               onTap: (){
                 Navigator.of(context).pushNamed('/signUp');
               },
               child: Text(
                 'Sign up!',
-                style: TextStyle(color: ColorConverter().firstButtonGradient()),
+                style: TextStyle(
+                  color: ColorConverter().firstButtonGradient(),
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
