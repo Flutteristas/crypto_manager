@@ -12,37 +12,51 @@ class AccountsListState extends State<AccountsList>{
     return Scaffold(
       body: _buildListBody(),
       drawer: _buildDrawer(),
-      appBar: AppBar(),
+      appBar: AppBar(
+        elevation: 0,
+        iconTheme: IconThemeData(color: ColorConverter().firstButtonGradient()),
+      ),
     );
   }
 
   Widget _buildListBody(){
-    return Container(        
-      color: ColorConverter().backgroundColor(),
-      child: SafeArea(          
-        child: Container(          
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              _buildSearchBar(),
-              _buildProfilesList(),
-            ],
-          )
-        ),
+    return SafeArea(          
+      child: Container(          
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            _buildSearchBar(),
+            _buildProfilesList(),
+          ],
+        )
       ),
     );
   }
 
   Widget _buildSearchBar(){
     return Container(
-      margin: EdgeInsets.all(8),
-      height: 40,
-      color: Colors.black54,
+      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+      height: 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: Colors.transparent,
+        border: Border.all(
+          color: Colors.white
+        )
+      ),
+      alignment: Alignment.centerRight,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
+        child: Icon(
+          Icons.search,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 
   Widget _buildDrawer(){
-    return Drawer(      
+    return Drawer(            
       child: ListView(
         children: <Widget>[
           DrawerHeader(            
@@ -104,7 +118,7 @@ class AccountsListState extends State<AccountsList>{
   }
 
   Widget _buildProfilesList(){
-    return Flexible(
+    return Expanded(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
         child: ListView.builder(
@@ -122,7 +136,7 @@ class AccountsListState extends State<AccountsList>{
                   ),
                   boxShadow: <BoxShadow>[
                     BoxShadow(
-                      color: ColorConverter().fieldTextColor().withOpacity(0.1),
+                      color: ColorConverter().fieldTextColor().withOpacity(0.05),
                       offset: Offset(3, 3),
                       blurRadius: 1,                      
                     )
