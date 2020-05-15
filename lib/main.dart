@@ -3,6 +3,7 @@ import 'package:password_manager/utils/ColorConverter.dart';
 import 'package:password_manager/view/accountsList.dart';
 import 'package:password_manager/view/signHome.dart';
 import 'package:password_manager/view/signUp.dart';
+import 'package:password_manager/view/userCreated.dart';
 
 void main() => runApp(PasswordManager());
 
@@ -14,7 +15,8 @@ class PasswordManager extends StatelessWidget{
       routes: {
         '/signHome': (context) => SignHome(),
         '/signUp': (context) => SignUp(),
-        '/accountsList': (context) => AccountsList()
+        '/accountsList': (context) => AccountsList(),
+        '/userCreated': (context) => UserCreated(),
       },
       title: 'Password Manager',
       theme: ThemeData(        

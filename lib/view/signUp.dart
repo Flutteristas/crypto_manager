@@ -9,13 +9,27 @@ class SignUp extends StatefulWidget{
 class SignUpState extends State<SignUp>{
 
   final formKey = new GlobalKey<FormState>();
+  String _name;
+  String _email;
+  String _password;
+  String _confirmedPassword;
+
+  void _validateAndSave(){
+    final form = formKey.currentState;
+    if(form.validate()){
+      form.save();  
+      Navigator.of(context)  .pushNamed('/userCreated');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _buildBody(),
+      resizeToAvoidBottomPadding: false,
     );
   }
+
 
   Widget _buildBody(){
     return Container(
@@ -29,6 +43,7 @@ class SignUpState extends State<SignUp>{
             _buildNameField(),
             _buildEmailField(),
             _buildPasswordField(),
+            _buildConfirmPasswordField(),
             _buildSignUpButton()
           ],
         ),
@@ -43,6 +58,10 @@ class SignUpState extends State<SignUp>{
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(Icons.person, color: Colors.white),
       ),
+      validator: (value) => value.isEmpty ? 'Name can\'t be empty' : null,
+      onSaved: (value){
+        _name = value;
+      },
     ); 
   }
 
@@ -55,6 +74,10 @@ class SignUpState extends State<SignUp>{
           labelStyle: TextStyle(color: Colors.white),
           prefixIcon: Icon(Icons.email, color: Colors.white),
         ),
+        validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
+        onSaved: (value){
+          _email = value;
+        },
       ),
     ); 
   }
@@ -67,6 +90,28 @@ class SignUpState extends State<SignUp>{
         labelStyle: TextStyle(color: Colors.white),
         prefixIcon: Icon(Icons.lock, color: Colors.white),
       ),
+      validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
+      onSaved: (value){
+        _password = value;
+      },
+    );
+  }
+
+  Widget _buildConfirmPasswordField(){
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+      child: TextFormField(
+        obscureText: true,
+        decoration: InputDecoration(
+          labelText: 'Confirm Password',
+          labelStyle: TextStyle(color: Colors.white),
+          prefixIcon: Icon(Icons.lock, color: Colors.white),
+        ),
+        validator: (value) => value.isEmpty ? 'Confirmed Password can\'t be empty' : null,
+        onSaved: (value){
+          _confirmedPassword = value;
+        },
+      ),
     );
   }
 
@@ -77,7 +122,7 @@ class SignUpState extends State<SignUp>{
         height: 50,
         child: RaisedButton(
           onPressed: (){
-
+            _validateAndSave();
           },
           padding: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
@@ -88,7 +133,7 @@ class SignUpState extends State<SignUp>{
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  ColorConverter().firstButtonGradient().withOpacity(0.8),
+                  ColorConverter().firstButtonGradient(),
                   ColorConverter().secondButtonGradient()
                 ],
               ),
