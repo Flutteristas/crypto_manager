@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
-class SignHome extends StatelessWidget{
+class SignHome extends StatefulWidget{
+
+  @override
+  State<StatefulWidget> createState() => new SignHomeState();
+}
+
+class SignHomeState extends State<SignHome> {
 
   final formKey = new GlobalKey<FormState>();
-  static String _email;
-  static String _password;
+  String _email;
+  String _password;
+  
 
-  void _validateAndSave(BuildContext context){
+  void _validateAndSave(){
     final form = formKey.currentState;
     if (form.validate()){
       form.save();    
+
       Navigator.of(context).pushNamed('/accountsList');
     }
   }
 
-  @override
+    @override
   Widget build(BuildContext context) {
-    return Scaffold(      
+   return Scaffold(      
       resizeToAvoidBottomPadding: false,
       body: Container(   
         margin: EdgeInsets.all(32),             
@@ -25,7 +33,7 @@ class SignHome extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,                                            
           children: <Widget>[
             _homeTitle(),
-            _buildForm(context),
+            _buildForm(),
           ],
         ),
       )
@@ -43,7 +51,7 @@ class SignHome extends StatelessWidget{
     );
   }
 
-  Widget _buildForm(BuildContext context){
+  Widget _buildForm(){
     return Container(
       child: Form(
         key: formKey,
@@ -52,8 +60,8 @@ class SignHome extends StatelessWidget{
           children: <Widget>[
             _buildEmailField(),
             _buildPasswordField(),
-            _buildLoginButton(context),
-            _buildSignUpRow(context),
+            _buildLoginButton(),
+            _buildSignUpRow(),
           ],
         ),
       ),
@@ -91,14 +99,14 @@ class SignHome extends StatelessWidget{
     );
   }
 
-  Widget _buildLoginButton(BuildContext context){
+  Widget _buildLoginButton(){
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
       child: Container(
         height: 50,        
         child: RaisedButton(
           onPressed: (){
-            _validateAndSave(context);
+            _validateAndSave();
           },
           padding: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
@@ -109,7 +117,7 @@ class SignHome extends StatelessWidget{
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  ColorConverter().firstButtonGradient().withOpacity(0.8),
+                  ColorConverter().firstButtonGradient(),
                   ColorConverter().secondButtonGradient()
                 ]
               ),
@@ -117,8 +125,7 @@ class SignHome extends StatelessWidget{
             child: Container(                          
               alignment: Alignment.center,
               child: Text(
-                'LOG IN',
-                textAlign: TextAlign.center,
+                'Login',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16
@@ -131,7 +138,7 @@ class SignHome extends StatelessWidget{
     );
   }
 
-  Widget _buildSignUpRow(BuildContext context){
+  Widget _buildSignUpRow(){
     return Container(
       margin: EdgeInsets.fromLTRB(0, 24, 0, 0), 
       child: Row(
@@ -159,4 +166,5 @@ class SignHome extends StatelessWidget{
       ),
     );
   }
+
 }
