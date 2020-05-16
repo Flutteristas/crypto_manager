@@ -16,7 +16,8 @@ class ChangePasswordState extends State<ChangePassword>{
   void _validateAndSave(){
     final form = formKey.currentState;
     if (form.validate()){
-      form.save();      
+      form.save();
+      _alertProfileCreated();      
     }
   }
 
@@ -43,7 +44,8 @@ class ChangePasswordState extends State<ChangePassword>{
             actions: <Widget>[
               FlatButton(
                 onPressed: (){
-                  Navigator.of(context).pushNamed('/accountSettings');
+                  Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Confirm',
@@ -113,8 +115,7 @@ class ChangePasswordState extends State<ChangePassword>{
       margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _validateAndSave();
-          _alertProfileCreated();
+          _validateAndSave();      
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),

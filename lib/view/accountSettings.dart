@@ -25,6 +25,7 @@ class AccountSettingsState extends State<AccountSettings>{
     final form = formkey.currentState;
     if(form.validate()){
       form.save();
+      _alertProfileCreated();
     }
   }
 
@@ -51,7 +52,7 @@ class AccountSettingsState extends State<AccountSettings>{
             actions: <Widget>[
               FlatButton(
                 onPressed: (){
-                  Navigator.of(context).pushNamed('/profilesList');
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Confirm',
@@ -164,7 +165,6 @@ class AccountSettingsState extends State<AccountSettings>{
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();
-          _alertProfileCreated();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
