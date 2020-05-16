@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
-import 'package:password_manager/view/accountsList.dart';
+import 'package:password_manager/view/accountSettings.dart';
+import 'package:password_manager/view/changePassword.dart';
+import 'package:password_manager/view/profilesList.dart';
+import 'package:password_manager/view/alterProfile.dart';
+import 'package:password_manager/view/createProfile.dart';
 import 'package:password_manager/view/signHome.dart';
 import 'package:password_manager/view/signUp.dart';
-import 'package:password_manager/view/userCreated.dart';
+import 'package:password_manager/view/accountCreated.dart';
 
 void main() => runApp(PasswordManager());
 
@@ -15,8 +19,12 @@ class PasswordManager extends StatelessWidget{
       routes: {
         '/signHome': (context) => SignHome(),
         '/signUp': (context) => SignUp(),
-        '/accountsList': (context) => AccountsList(),
-        '/userCreated': (context) => UserCreated(),
+        '/profilesList': (context) => ProfilesList(),
+        '/accountCreated': (context) => AccountCreated(),
+        '/createProfile': (context) => CreateProfile(),
+        '/alterProfile': (context) => AlterProfile(),
+        '/accountSettings': (context) => AccountSettings(),
+        '/changePassword': (context) => ChangePassword()
       },
       title: 'Password Manager',
       theme: ThemeData(        
