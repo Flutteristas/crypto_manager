@@ -18,7 +18,7 @@ class SignUpState extends State<SignUp>{
     final form = formKey.currentState;
     if(form.validate()){
       form.save();  
-      Navigator.of(context)  .pushNamed('/userCreated');
+      Navigator.of(context)  .pushNamed('/accountCreated');
     }
   }
 

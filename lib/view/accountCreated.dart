@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
-class UserCreated extends StatefulWidget{
+class AccountCreated extends StatefulWidget{
   
   @override
-  State<StatefulWidget> createState() => new UserCreatedState();
+  State<StatefulWidget> createState() => new AccountCreatedState();
 }
 
-class UserCreatedState extends State<UserCreated> {
+class AccountCreatedState extends State<AccountCreated> {
 
   @override
   Widget build(BuildContext context) {    
@@ -63,7 +63,7 @@ class UserCreatedState extends State<UserCreated> {
       height: 50,
       child: RaisedButton(
         onPressed: (){
-          Navigator.of(context).pushNamed('/accountsList');
+          Navigator.of(context).pushNamed('/profilesList');
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),

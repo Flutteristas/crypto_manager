@@ -19,7 +19,7 @@ class SignHomeState extends State<SignHome> {
     if (form.validate()){
       form.save();    
 
-      Navigator.of(context).pushNamed('/accountsList');
+      Navigator.of(context).pushNamed('/profilesList');
     }
   }
 

@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
-class AccountsList extends StatefulWidget{
+class ProfilesList extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => AccountsListState();
+  State<StatefulWidget> createState() => ProfilesListState();
 }
 
-class AccountsListState extends State<AccountsList>{
+class ProfilesListState extends State<ProfilesList>{
+
   @override
   Widget build(BuildContext context) {    
-    return Scaffold(
-      body: _buildListBody(),
-      drawer: _buildDrawer(),
-      appBar: AppBar(
-        elevation: 0,
-        iconTheme: IconThemeData(color: ColorConverter().firstButtonGradient()),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        body: _buildListBody(),
+        drawer: _buildDrawer(),
+        appBar: AppBar(
+          elevation: 0,
+          iconTheme: IconThemeData(color: ColorConverter().firstButtonGradient()),        
+        ),
+        floatingActionButton: _buildFloatActionButton(),
       ),
     );
   }
@@ -68,16 +73,18 @@ class AccountsListState extends State<AccountsList>{
               ),
             )
           ),          
-          _buildDrawerProfile(),
+          _buildDrawerAccount(),
           _buildDrawerLogout()
         ],
       ),
     );
   }
 
-  Widget _buildDrawerProfile(){
+  Widget _buildDrawerAccount(){
     return GestureDetector(
-      onTap: (){},
+      onTap: (){
+        Navigator.of(context).pushNamed('/accountSettings');
+      },
       child: Container(
         child: ListTile(
           leading: Icon(
@@ -85,7 +92,7 @@ class AccountsListState extends State<AccountsList>{
             color: ColorConverter().firstButtonGradient().withOpacity(0.8),
           ),
           title: Text(
-            'Profile',
+            'Account',
             style: TextStyle(
               color: ColorConverter().firstButtonGradient().withOpacity(0.8),
             ),
@@ -124,33 +131,58 @@ class AccountsListState extends State<AccountsList>{
         child: ListView.builder(
           itemCount: 20,
           itemBuilder: (BuildContext context, int index){
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(                
-                height: 80,
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(
-                    color: ColorConverter().firstButtonGradient()
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: ColorConverter().fieldTextColor().withOpacity(0.05),
-                      offset: Offset(3, 3),
-                      blurRadius: 1,                      
-                    )
-                  ]
-                ),
-                child: ListTile(                
-                  leading: Text('Rafael'),
-                  title: Text('Soares'),
-                ),
-              ),
-            );
+            return _buildProfileInteration();
           }
         ),
       ),    
+    );
+  }
+
+  Widget _buildProfileInteration(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: GestureDetector(
+        onTap: (){
+          Navigator.of(context).pushNamed('/alterProfile');
+        },
+        child: _buildProfileContainer()
+      ),
+    );
+  }
+
+  Widget _buildProfileContainer(){
+    return Container(                
+      height: 80,
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: ColorConverter().firstButtonGradient()
+        ),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: ColorConverter().fieldTextColor().withOpacity(0.05),
+            offset: Offset(3, 3),
+            blurRadius: 1,                      
+          )
+        ]
+      ),
+      child: ListTile(                
+        leading: Text('Rafael'),
+        title: Text('Soares'),
+      ),
+    );
+  }
+
+  Widget _buildFloatActionButton(){
+    return FloatingActionButton(
+      onPressed: (){
+        Navigator.of(context).pushNamed('/createProfile');
+      },
+      backgroundColor: ColorConverter().firstButtonGradient(),
+      child: Icon(
+        Icons.add,        
+      ),
     );
   }
 }
