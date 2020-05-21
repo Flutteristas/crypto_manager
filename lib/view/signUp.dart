@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class SignUp extends StatefulWidget{
@@ -18,6 +19,7 @@ class SignUpState extends State<SignUp>{
     final form = formKey.currentState;
     if(form.validate()){
       form.save();  
+      AuthProvider().createUser(_name, _email, _password);
       Navigator.of(context)  .pushNamed('/accountCreated');
     }
   }

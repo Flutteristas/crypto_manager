@@ -18,7 +18,8 @@ class CreateProfileState extends State<CreateProfile> {
   void _validateAndSave(){
     final form = formKey.currentState;
     if (form.validate()){
-      form.save();      
+      form.save(); 
+      _alertProfileCreated();     
     }
   }
 
@@ -45,7 +46,7 @@ class CreateProfileState extends State<CreateProfile> {
             actions: <Widget>[
               FlatButton(
                 onPressed: (){
-                  Navigator.of(context).pushNamed('/profilesList');
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Confirm',
@@ -133,7 +134,6 @@ class CreateProfileState extends State<CreateProfile> {
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();
-          _alertProfileCreated();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
