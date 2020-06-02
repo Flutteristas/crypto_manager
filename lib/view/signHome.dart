@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class SignHome extends StatefulWidget{
@@ -14,12 +16,16 @@ class SignHomeState extends State<SignHome> {
   String _password;
   
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formKey.currentState;
     if (form.validate()){
       form.save();    
 
-      Navigator.of(context).pushNamed('/profilesList');
+      await AuthProvider().signInEmail(_email, _password).then((FirebaseUser user){
+        if(user.uid != null){
+          Navigator.of(context).pushNamed('/profilesList');
+        }
+      }); 
     }
   }
 

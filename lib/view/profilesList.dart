@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class ProfilesList extends StatefulWidget{
@@ -8,8 +10,13 @@ class ProfilesList extends StatefulWidget{
 
 class ProfilesListState extends State<ProfilesList>{
 
+  String userUID;
+
   @override
   Widget build(BuildContext context) {    
+    AuthProvider().userID().then((String user){
+      userUID = user;
+    });
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -102,10 +109,16 @@ class ProfilesListState extends State<ProfilesList>{
     );
   }
 
+  void _logoutCurrentUser() async{
+
+    await AuthProvider().logoutUser();
+    Navigator.of(context).pushNamed('/signHome');
+  }
+
   Widget _buildDrawerLogout(){
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).pushNamed('/signHome');
+        _logoutCurrentUser();
       },
       child: Container(
         child: ListTile(
@@ -126,31 +139,35 @@ class ProfilesListState extends State<ProfilesList>{
 
   Widget _buildProfilesList(){
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-        child: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (BuildContext context, int index){
-            return _buildProfileInteration();
-          }
-        ),
-      ),    
+      child: StreamBuilder(
+        stream: Firestore.instance.collection("profiles").where(
+          "uid",
+          isEqualTo: userUID
+        ).snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+          return ListView(
+            children: snapshot.data.documents.map((DocumentSnapshot document) {              
+                return _buildProfileInteration(document["title"], document["account"]);
+            }).toList(),
+          );
+        },
+      ),  
     );
   }
 
-  Widget _buildProfileInteration(){
+  Widget _buildProfileInteration(title, account){
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: (){
           Navigator.of(context).pushNamed('/alterProfile');
         },
-        child: _buildProfileContainer()
+        child: _buildProfileContainer(title, account)
       ),
     );
   }
 
-  Widget _buildProfileContainer(){
+  Widget _buildProfileContainer(title, account){
     return Container(                
       height: 80,
       decoration: BoxDecoration(
@@ -168,8 +185,8 @@ class ProfilesListState extends State<ProfilesList>{
         ]
       ),
       child: ListTile(                
-        leading: Text('Rafael'),
-        title: Text('Soares'),
+        leading: Text(title),
+        title: Text(title),
       ),
     );
   }

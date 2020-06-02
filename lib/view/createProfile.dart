@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class CreateProfile extends StatefulWidget{
@@ -15,11 +16,15 @@ class CreateProfileState extends State<CreateProfile> {
   String _username;
   String _password;
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formKey.currentState;
     if (form.validate()){
       form.save(); 
-      _alertProfileCreated();     
+      await AuthProvider().signNewCryptoProfile(_title, _account, _username, _password).then((bool signed){
+        if(signed){
+          _alertProfileCreated();
+        }
+      });           
     }
   }
 
