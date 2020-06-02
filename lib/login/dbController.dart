@@ -39,4 +39,18 @@ class AuthProvider {
 
     return Future<String>.value(userUID);
   }
+
+  Future<bool> signNewCryptoProfile(title, account, username, password) async{
+    final FirebaseUser currentUser = await auth.currentUser();
+    String userUID = currentUser.uid;
+
+    firestore.collection('profiles').document().setData({
+      "uid": userUID,
+      "title": title,
+      "account": account,
+      "username": username,
+      "password": password
+    });
+    return true;
+  }
 }
