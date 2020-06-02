@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
@@ -10,17 +11,22 @@ class SignUp extends StatefulWidget{
 class SignUpState extends State<SignUp>{
 
   final formKey = new GlobalKey<FormState>();
-  String _name;
   String _email;
   String _password;
   String _confirmedPassword;
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formKey.currentState;
     if(form.validate()){
       form.save();  
-      AuthProvider().createUser(_name, _email, _password);
-      Navigator.of(context)  .pushNamed('/accountCreated');
+
+      if (_password == _confirmedPassword){
+        await AuthProvider().SignUpEmail(_email, _password).then((FirebaseUser user){
+          Navigator.of(context).pushNamed('/accountCreated');
+        });
+      } else {
+        print('User wasn\'t created');
+      }  
     }
   }
 
@@ -42,7 +48,6 @@ class SignUpState extends State<SignUp>{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,                    
           children: <Widget>[
-            _buildNameField(),
             _buildEmailField(),
             _buildPasswordField(),
             _buildConfirmPasswordField(),
@@ -51,20 +56,6 @@ class SignUpState extends State<SignUp>{
         ),
       ),
     );
-  }
-
-  Widget _buildNameField(){
-    return TextFormField(    
-      decoration: InputDecoration(
-        labelText: 'Name',
-        labelStyle: TextStyle(color: Colors.white),
-        prefixIcon: Icon(Icons.person, color: Colors.white),
-      ),
-      validator: (value) => value.isEmpty ? 'Name can\'t be empty' : null,
-      onSaved: (value){
-        _name = value;
-      },
-    ); 
   }
 
   Widget _buildEmailField(){
