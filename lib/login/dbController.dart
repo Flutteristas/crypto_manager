@@ -5,30 +5,38 @@ class AuthProvider {
   final Firestore firestore = Firestore.instance;
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  Future<FirebaseUser> SignInEmail(String email, String password) async {
+  Future<FirebaseUser> signInEmail(String email, String password) async {
+    AuthResult result = await auth.signInWithEmailAndPassword(email: email, password: password);
+    final FirebaseUser user = result.user;
 
-      AuthResult result = await auth.signInWithEmailAndPassword(email: email, password: password);
-      final FirebaseUser user = result.user;
+    assert(user != null);
+    assert(await user.getIdToken() != null);
 
-      assert(user != null);
-      assert(await user.getIdToken() != null);
+    final FirebaseUser currentUser = await auth.currentUser();
+    assert(user.uid == currentUser.uid);
 
-      final FirebaseUser currentUser = await auth.currentUser();
-      assert(user.uid == currentUser.uid);
+    return user;
+  }
 
-      return user;
+  Future<FirebaseUser> signUpEmail(email, password) async {
+    AuthResult result = await auth.createUserWithEmailAndPassword(email: email, password: password);
+    final FirebaseUser user = result.user;
 
-    }
+    assert (user != null);
+    assert (await user.getIdToken() != null);
 
-  Future<FirebaseUser> SignUpEmail(email, password) async {
+    return user;
+  } 
 
-      AuthResult result = await auth.createUserWithEmailAndPassword(email: email, password: password);
-      final FirebaseUser user = result.user;
+  Future<void> logoutUser() async {
+    await auth.signOut();
+  }
 
-      assert (user != null);
-      assert (await user.getIdToken() != null);
+  Future<String> userID() async {
+    final FirebaseUser currentUser = await auth.currentUser();
+    
+    String userUID = currentUser.uid;
 
-      return user;
-
-    } 
+    return Future<String>.value(userUID);
+  }
 }

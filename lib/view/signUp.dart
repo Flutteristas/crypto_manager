@@ -21,7 +21,7 @@ class SignUpState extends State<SignUp>{
       form.save();  
 
       if (_password == _confirmedPassword){
-        await AuthProvider().SignUpEmail(_email, _password).then((FirebaseUser user){
+        await AuthProvider().signUpEmail(_email, _password).then((FirebaseUser user){
           Navigator.of(context).pushNamed('/accountCreated');
         });
       } else {

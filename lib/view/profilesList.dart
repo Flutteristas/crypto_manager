@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class ProfilesList extends StatefulWidget{
@@ -102,10 +103,15 @@ class ProfilesListState extends State<ProfilesList>{
     );
   }
 
+  void _logoutCurrentUser() async{
+    await AuthProvider().logoutUser();
+    Navigator.of(context).pushNamed('/signHome');
+  }
+
   Widget _buildDrawerLogout(){
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).pushNamed('/signHome');
+        _logoutCurrentUser();
       },
       child: Container(
         child: ListTile(
