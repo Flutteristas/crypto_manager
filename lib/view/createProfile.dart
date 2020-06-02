@@ -52,6 +52,7 @@ class CreateProfileState extends State<CreateProfile> {
               FlatButton(
                 onPressed: (){
                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Confirm',
@@ -95,7 +96,7 @@ class CreateProfileState extends State<CreateProfile> {
             _buildFormField('Title', 'Title can\'t be empty'),
             _buildFormField('Account', 'Account can\'t be empty'),
             _buildFormField('Username', 'Username can\'t be empty'),
-            _buildFormField('Password', 'Password can\'t be empty'),
+            _buildPasswordField('Password', 'Password can\'t be empty'),
             _buildCreateProfileButton(),
           ],
         ),
@@ -125,6 +126,27 @@ class CreateProfileState extends State<CreateProfile> {
             _username = value;
           }
           else if (label == 'Password'){
+            _password = value;
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildPasswordField(String label, String error){
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),      
+      child: TextFormField(
+        obscureText: true,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(
+            color: Colors.white
+          ),        
+        ),
+        validator: (value) => value.isEmpty ? error : null,
+        onSaved: (value){
+          if (label == 'Password'){
             _password = value;
           }
         },

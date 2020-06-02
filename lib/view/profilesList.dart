@@ -147,7 +147,7 @@ class ProfilesListState extends State<ProfilesList>{
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           return ListView(
             children: snapshot.data.documents.map((DocumentSnapshot document) {              
-                return _buildProfileInteration(document["title"], document["account"]);
+                return _buildProfileInteration(document.documentID, document["title"], document["account"], document["username"], document["password"]);
             }).toList(),
           );
         },
@@ -155,12 +155,13 @@ class ProfilesListState extends State<ProfilesList>{
     );
   }
 
-  Widget _buildProfileInteration(title, account){
+  Widget _buildProfileInteration(documentID, title, account, username, password){
+    Map<String, dynamic> profileDatas = {"id": documentID, "title": title, "account":  account, "username": username, "password": password};
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: (){
-          Navigator.of(context).pushNamed('/alterProfile');
+          Navigator.of(context).pushNamed('/alterProfile', arguments: profileDatas);
         },
         child: _buildProfileContainer(title, account)
       ),

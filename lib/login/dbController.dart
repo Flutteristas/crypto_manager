@@ -44,13 +44,19 @@ class AuthProvider {
     final FirebaseUser currentUser = await auth.currentUser();
     String userUID = currentUser.uid;
 
-    firestore.collection('profiles').document().setData({
+    await firestore.collection('profiles').document().setData({
       "uid": userUID,
       "title": title,
       "account": account,
       "username": username,
       "password": password
     });
+    
+    return true;
+  }
+
+  Future<bool> deleteCryptoProfile(String documentID) async{
+    await firestore.collection("profiles").document(documentID).delete();
     return true;
   }
 }
