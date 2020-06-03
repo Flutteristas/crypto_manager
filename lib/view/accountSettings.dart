@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class AccountSettings extends StatefulWidget{
@@ -88,10 +89,10 @@ class AccountSettingsState extends State<AccountSettings>{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            _buildFormField('Name', 'Name can\'t be empty'),
             _buildFormField('Email', 'Email can\'t be empty'),
             _buildChangePasswordButton(),
             _buildUpdateButton(),
+            _buildDeleteButton()
           ],
         ),
       ),
@@ -110,10 +111,7 @@ class AccountSettingsState extends State<AccountSettings>{
         ),
         validator: (value) => value.isEmpty ? error : null,
         onSaved: (value){
-          if (label == 'Name'){
-            _name = value;
-          }
-          else if (label == 'Email'){
+          if (label == 'Email'){
             _email = value;
           }          
         },
@@ -195,4 +193,39 @@ class AccountSettingsState extends State<AccountSettings>{
     );
   }
 
+  Widget _buildDeleteButton(){
+    return Container(
+      height: 50,
+      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      child: RaisedButton(
+        onPressed: (){
+          _deleteAccount();
+        },
+        padding: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        child: Ink(
+          decoration: BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.circular(32)
+          ),
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              'Delete Account',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _deleteAccount() async{
+    await AuthProvider().deleteUserAccount().then((bool isDeleted){            
+      Navigator.of(context).pushNamed('/signHome');
+    });
+  }
 }
