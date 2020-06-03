@@ -31,7 +31,9 @@ class SignHomeState extends State<SignHome> {
 
     @override
   Widget build(BuildContext context) {
-   return Scaffold(      
+   return WillPopScope(
+    onWillPop: () async => false,
+    child: Scaffold(      
       resizeToAvoidBottomPadding: false,
       body: Container(   
         margin: EdgeInsets.all(32),             
@@ -43,7 +45,8 @@ class SignHomeState extends State<SignHome> {
           ],
         ),
       )
-    );
+    ),
+   );
   }
 
   Widget _homeTitle(){

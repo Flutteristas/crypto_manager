@@ -40,6 +40,14 @@ class AuthProvider {
     return Future<String>.value(userUID);
   }
 
+  Future<bool> deleteUserAccount() async{
+    final FirebaseUser currentUser = await auth.currentUser();
+
+    await currentUser.delete();
+
+    return true;
+  }
+
   Future<bool> signNewCryptoProfile(title, account, username, password) async{
     final FirebaseUser currentUser = await auth.currentUser();
     String userUID = currentUser.uid;
@@ -57,6 +65,16 @@ class AuthProvider {
 
   Future<bool> deleteCryptoProfile(String documentID) async{
     await firestore.collection("profiles").document(documentID).delete();
+    return true;
+  }
+
+  Future<bool> updateCryptoProfile(Map<String, dynamic> profileDatas) async{
+    await firestore.collection("profiles").document(profileDatas["id"]).updateData({
+      "title": profileDatas["title"],
+      "account": profileDatas["account"],
+      "username": profileDatas["username"],
+      "password": profileDatas["password"]
+    });  
     return true;
   }
 }

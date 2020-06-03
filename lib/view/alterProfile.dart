@@ -17,12 +17,26 @@ class AlterProfileState extends State<AlterProfile>{
   String _password;
 
   Map<String, dynamic> profileDatas;
+  Map<String, dynamic> datasToUpdate;
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formKey.currentState;
     if (form.validate()){
       form.save(); 
-      _alertProfileCreated();     
+
+      datasToUpdate = {
+        "id": profileDatas["id"],
+        "title": _title,
+        "account": _account,
+        "username": _username,
+        "password": _password
+      };
+      print(datasToUpdate);
+      await AuthProvider().updateCryptoProfile(datasToUpdate).then((bool isUpdated){
+        if(isUpdated){
+          _alertProfileCreated(); 
+        }
+      });      
     }
   }
 
@@ -50,6 +64,7 @@ class AlterProfileState extends State<AlterProfile>{
               FlatButton(
                 onPressed: (){
                   Navigator.pop(context);
+                  Navigator.pop(context);
                 },
                 child: Text(
                   'Confirm',
@@ -72,6 +87,7 @@ class AlterProfileState extends State<AlterProfile>{
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildCreateProfileLayout(),
+      resizeToAvoidBottomInset: false,
     );
   }
 

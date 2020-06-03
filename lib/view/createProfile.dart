@@ -73,6 +73,7 @@ class CreateProfileState extends State<CreateProfile> {
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildCreateProfileLayout(),
+      resizeToAvoidBottomInset: false,
     );
   }
 
