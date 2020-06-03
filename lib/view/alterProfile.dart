@@ -19,6 +19,10 @@ class AlterProfileState extends State<AlterProfile>{
   Map<String, dynamic> profileDatas;
   Map<String, dynamic> datasToUpdate;
 
+  bool hidePassword = false;
+
+  Icon visibleOnOff = Icon(Icons.visibility, color: Colors.white);
+
   void _validateAndSave() async{
     final form = formKey.currentState;
     if (form.validate()){
@@ -153,30 +157,42 @@ class AlterProfileState extends State<AlterProfile>{
   Widget _buildPasswordField(String label, String error, String initialData){
     return Container(
       margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
-      child: TextFormField(
-        obscureText: true,
-        initialValue: initialData,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            color: Colors.white
-          ),        
-        ),
-        validator: (value) => value.isEmpty ? error : null,
-        onSaved: (value){
-          if (label == 'Title'){
-            _title = value;
-          }
-          else if (label == 'Account'){
-            _account = value;
-          }
-          else if (label == 'Username'){
-            _username = value;
-          }
-          else if (label == 'Password'){
-            _password = value;
-          }
-        },
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextFormField(
+              obscureText: hidePassword,
+              initialValue: initialData,
+              decoration: InputDecoration(
+                labelText: label,
+                labelStyle: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              validator: (value) => value.isEmpty ? error : null,
+              onSaved: (value){
+                  _password = value;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  if(hidePassword == false){
+                    hidePassword = true;
+                    visibleOnOff = Icon(Icons.visibility, color: Colors.white);
+                  } else {
+                    hidePassword = false;
+                    visibleOnOff = Icon(Icons.visibility_off, color: Colors.white);
+                  }                
+                });
+              },
+              child: visibleOnOff
+            ),
+          )
+        ],
       ),
     );
   }
