@@ -93,8 +93,8 @@ class AccountSettingsState extends State<AccountSettings>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildFormField('Email', 'Email can\'t be empty'),
-            _buildChangePasswordButton(),
             _buildUpdateButton(),
+            _buildChangePasswordButton(),            
             _buildDeleteButton()
           ],
         ),
