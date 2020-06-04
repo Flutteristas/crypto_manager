@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/login/dbController.dart';
+import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class ChangePassword extends StatefulWidget{

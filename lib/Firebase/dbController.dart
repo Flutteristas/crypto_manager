@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:password_manager/cryption/crypt.dart';
 
 class AuthProvider {
   final Firestore firestore = Firestore.instance;
@@ -64,12 +65,16 @@ class AuthProvider {
     final FirebaseUser currentUser = await auth.currentUser();
     String userUID = currentUser.uid;
 
+    print(password);
+    String cryptedPassword = CryptFunction().encrypt(username, password);
+    print(cryptedPassword);
+
     await firestore.collection('profiles').document().setData({
       "uid": userUID,
       "title": title,
       "account": account,
       "username": username,
-      "password": password
+      "password": cryptedPassword
     });
     
     return true;
