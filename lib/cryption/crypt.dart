@@ -2,7 +2,6 @@ import 'package:crypt/crypt.dart';
 
 class CryptFunction{
 
-  String hashedPassword;
   String salted;
 
   String encrypt(String username, String password){
@@ -10,9 +9,9 @@ class CryptFunction{
     salted = getSalt(username); //obtem salt utilizando o username
 
     
-    hashedPassword = Crypt.sha256(password, salt: salted) as String;  //gera hash com salt
+    final hashedPassword = Crypt.sha256(password, salt: salted);  //gera hash com salt
 
-    return hashedPassword;
+    return hashedPassword.toString();
 
   }
 

@@ -19,7 +19,7 @@ class AlterProfileState extends State<AlterProfile>{
   Map<String, dynamic> profileDatas;
   Map<String, dynamic> datasToUpdate;
 
-  bool hidePassword = false;
+  bool hidePassword = true;
 
   Icon visibleOnOff = Icon(Icons.visibility, color: Colors.white);
 
@@ -35,7 +35,7 @@ class AlterProfileState extends State<AlterProfile>{
         "username": _username,
         "password": _password
       };
-      print(datasToUpdate);
+
       await AuthProvider().updateCryptoProfile(datasToUpdate).then((bool isUpdated){
         if(isUpdated){
           _alertProfileCreated(); 
