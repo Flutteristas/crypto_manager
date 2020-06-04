@@ -11,7 +11,6 @@ class AccountSettingsState extends State<AccountSettings>{
 
   final formkey = GlobalKey<FormState>();
 
-  String _name;
   String _email;
 
   @override
@@ -22,15 +21,19 @@ class AccountSettingsState extends State<AccountSettings>{
     );
   }
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formkey.currentState;
     if(form.validate()){
       form.save();
-      _alertProfileCreated();
+
+      await AuthProvider().updateAccountEmail(_email).then((bool isUpdated){
+        if(isUpdated)
+           _alertAccountUpdated();
+      });      
     }
   }
 
-  void _alertProfileCreated(){
+  void _alertAccountUpdated(){
     Future.delayed(Duration(seconds: 1), (){
       showDialog(
         context: context,
@@ -43,7 +46,7 @@ class AccountSettingsState extends State<AccountSettings>{
               size: 50,
             ),
             content: Text(
-              'Profile updated',
+              'User updated',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white

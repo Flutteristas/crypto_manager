@@ -48,6 +48,18 @@ class AuthProvider {
     return true;
   }
 
+  Future<bool> updateAccountEmail(String email) async{
+    final FirebaseUser currentUser = await auth.currentUser();
+    await currentUser.updateEmail(email);
+    return true;
+  }
+
+  Future<bool> updateAccountPassword(String password) async{
+    final FirebaseUser currentUser = await auth.currentUser();
+    await currentUser.updatePassword(password);
+    return true;
+  }
+
   Future<bool> signNewCryptoProfile(title, account, username, password) async{
     final FirebaseUser currentUser = await auth.currentUser();
     String userUID = currentUser.uid;
