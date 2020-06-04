@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:password_manager/login/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class ChangePassword extends StatefulWidget{
@@ -13,11 +14,19 @@ class ChangePasswordState extends State<ChangePassword>{
   String _newPassword;
   String _confirmedPassword;
 
-  void _validateAndSave(){
+  void _validateAndSave() async{
     final form = formKey.currentState;
     if (form.validate()){
       form.save();
-      _alertProfileCreated();      
+      if(_newPassword == _confirmedPassword){
+        await AuthProvider().updateAccountPassword(_newPassword).then((bool isUpdated){
+          if(isUpdated)
+            _alertProfileCreated();
+        });
+      } else {
+        _alertPasswordsDontMatch();
+      }
+      
     }
   }
 
@@ -45,6 +54,45 @@ class ChangePasswordState extends State<ChangePassword>{
               FlatButton(
                 onPressed: (){
                   Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient()
+                  ),
+                ),
+              )
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _alertPasswordsDontMatch(){
+    Future.delayed(Duration(seconds: 1), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 50,
+            ),
+            content: Text(
+              'Password Don\'t Match',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
                   Navigator.pop(context);
                 },
                 child: Text(
@@ -90,6 +138,7 @@ class ChangePasswordState extends State<ChangePassword>{
     return Container(
       margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
       child: TextFormField(
+        obscureText: true,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
