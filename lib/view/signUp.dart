@@ -77,7 +77,7 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildPasswordField(){
     return TextFormField(
-      obscureText: true,
+      obscureText: true,      
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: TextStyle(color: Colors.white),
