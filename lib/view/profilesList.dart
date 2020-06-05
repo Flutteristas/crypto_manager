@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:password_manager/login/dbController.dart';
+import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class ProfilesList extends StatefulWidget{
@@ -37,32 +37,9 @@ class ProfilesListState extends State<ProfilesList>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _buildSearchBar(),
             _buildProfilesList(),
           ],
         )
-      ),
-    );
-  }
-
-  Widget _buildSearchBar(){
-    return Container(
-      margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
-      height: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: Colors.transparent,
-        border: Border.all(
-          color: Colors.white
-        )
-      ),
-      alignment: Alignment.centerRight,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 0, 8, 0),
-        child: Icon(
-          Icons.search,
-          color: Colors.white,
-        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:password_manager/login/dbController.dart';
+import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class SignUp extends StatefulWidget{
@@ -77,7 +77,7 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildPasswordField(){
     return TextFormField(
-      obscureText: true,
+      obscureText: true,      
       decoration: InputDecoration(
         labelText: 'Password',
         labelStyle: TextStyle(color: Colors.white),

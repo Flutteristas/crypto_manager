@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:password_manager/login/dbController.dart';
+import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
 class AccountSettings extends StatefulWidget{
@@ -93,8 +93,8 @@ class AccountSettingsState extends State<AccountSettings>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             _buildFormField('Email', 'Email can\'t be empty'),
-            _buildChangePasswordButton(),
             _buildUpdateButton(),
+            _buildChangePasswordButton(),            
             _buildDeleteButton()
           ],
         ),
