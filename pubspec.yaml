@@ -27,7 +27,7 @@ dependencies:
   firebase_auth: ^0.16.1
   crypt: ^3.0.0
 
-  local_auth: ^0.6.2+3
+  local_auth: ^0.4.0+1
 
 dev_dependencies:
   flutter_test:
