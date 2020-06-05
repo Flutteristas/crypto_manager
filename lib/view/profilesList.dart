@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/fingerAuth.dart';
 
 class ProfilesList extends StatefulWidget{
   @override
@@ -87,7 +88,6 @@ class ProfilesListState extends State<ProfilesList>{
   }
 
   void _logoutCurrentUser() async{
-
     await AuthProvider().logoutUser();
     Navigator.of(context).pushNamed('/signHome');
   }
@@ -132,13 +132,20 @@ class ProfilesListState extends State<ProfilesList>{
     );
   }
 
+  void _authenticateFingerprint(Map<String, dynamic> profileDatas) async{
+    await FingerPrintAuthentication().authenticateUserWithFingerPrint().then((bool isAuthenticated){
+      if(isAuthenticated) 
+        Navigator.of(context).pushNamed('/alterProfile', arguments: profileDatas);
+    });
+  }
+
   Widget _buildProfileInteration(documentID, title, account, username, password){
     Map<String, dynamic> profileDatas = {"id": documentID, "title": title, "account":  account, "username": username, "password": password};
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: (){
-          Navigator.of(context).pushNamed('/alterProfile', arguments: profileDatas);
+          _authenticateFingerprint(profileDatas);          
         },
         child: _buildProfileContainer(title, account)
       ),
