@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
-class CreateProfile extends StatefulWidget{
+class CreateEntry extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => CreateProfileState();
+  State<StatefulWidget> createState() => CreateEntryState();
 }
 
-class CreateProfileState extends State<CreateProfile> {
+class CreateEntryState extends State<CreateEntry> {
 
   final formKey = GlobalKey<FormState>();
 
@@ -20,15 +20,15 @@ class CreateProfileState extends State<CreateProfile> {
     final form = formKey.currentState;
     if (form.validate()){
       form.save(); 
-      await AuthProvider().signNewCryptoProfile(_title, _account, _username, _password).then((bool signed){
+      await AuthProvider().signNewCryptoEntry(_title, _account, _username, _password).then((bool signed){
         if(signed){
-          _alertProfileCreated();
+          _alertEntryCreated();
         }
       });           
     }
   }
 
-  void _alertProfileCreated(){
+  void _alertEntryCreated(){
     Future.delayed(Duration(seconds: 1), (){
       showDialog(
         context: context,
@@ -41,7 +41,7 @@ class CreateProfileState extends State<CreateProfile> {
               size: 50,
             ),
             content: Text(
-              'Profile added',
+              'Entry added',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white
@@ -72,7 +72,7 @@ class CreateProfileState extends State<CreateProfile> {
   Widget build(BuildContext context) {    
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildCreateProfileLayout(),
+      body: _buildCreateEntryLayout(),
       resizeToAvoidBottomInset: false,
     );
   }
@@ -80,13 +80,13 @@ class CreateProfileState extends State<CreateProfile> {
   Widget _buildAppBar(){
     return AppBar(
       title: Text(
-        'Add Profile',
+        'Add Entry',
       ),
       centerTitle: true,
     ); 
   }
 
-  Widget _buildCreateProfileLayout(){
+  Widget _buildCreateEntryLayout(){
     return Container(
       margin: EdgeInsets.all(24),
       child: Form(
@@ -98,7 +98,7 @@ class CreateProfileState extends State<CreateProfile> {
             _buildFormField('Account', 'Account can\'t be empty'),
             _buildFormField('Username', 'Username can\'t be empty'),
             _buildPasswordField('Password', 'Password can\'t be empty'),
-            _buildCreateProfileButton(),
+            _buildCreateEntryButton(),
           ],
         ),
       ),
@@ -155,7 +155,7 @@ class CreateProfileState extends State<CreateProfile> {
     );
   }
 
-  Widget _buildCreateProfileButton(){
+  Widget _buildCreateEntryButton(){
     return Container(
       height: 50,
       margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -180,7 +180,7 @@ class CreateProfileState extends State<CreateProfile> {
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              'Add Profile',
+              'Add Entry',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18

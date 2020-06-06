@@ -2,21 +2,26 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/fingerAuth.dart';
 
-class ProfilesList extends StatefulWidget{
+class EntriesList extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => ProfilesListState();
+  State<StatefulWidget> createState() => EntriesListState();
 }
 
-class ProfilesListState extends State<ProfilesList>{
+class EntriesListState extends State<EntriesList>{
 
   String userUID;
 
-  @override
-  Widget build(BuildContext context) {    
-    AuthProvider().userID().then((String user){
+  void _getUserUID() async{
+    await AuthProvider().userID().then((String user){
       userUID = user;
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {        
+    _getUserUID();
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -37,7 +42,7 @@ class ProfilesListState extends State<ProfilesList>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            _buildProfilesList(),
+            _buildEntriesList(),
           ],
         )
       ),
@@ -87,7 +92,6 @@ class ProfilesListState extends State<ProfilesList>{
   }
 
   void _logoutCurrentUser() async{
-
     await AuthProvider().logoutUser();
     Navigator.of(context).pushNamed('/signHome');
   }
@@ -114,38 +118,57 @@ class ProfilesListState extends State<ProfilesList>{
     );
   }
 
-  Widget _buildProfilesList(){
+  Widget _buildEntriesList(){
     return Expanded(
       child: StreamBuilder(
-        stream: Firestore.instance.collection("profiles").where(
+        stream: Firestore.instance.collection("entries").where(
           "uid",
           isEqualTo: userUID
         ).snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          return ListView(
-            children: snapshot.data.documents.map((DocumentSnapshot document) {              
-                return _buildProfileInteration(document.documentID, document["title"], document["account"], document["username"], document["password"]);
-            }).toList(),
-          );
+          //Verifico se existe algum dado
+          if(snapshot.data == null)
+            return CircularProgressIndicator();
+          else{
+            return ListView(
+              children: snapshot.data.documents.map((DocumentSnapshot document) {              
+                  return _buildEntryInteration(document.documentID, document["title"], document["account"], document["username"], document["password"]);
+              }).toList(),
+            );
+          }
         },
       ),  
     );
   }
 
-  Widget _buildProfileInteration(documentID, title, account, username, password){
+  void _authenticateFingerprint(Map<String, dynamic> profileDatas) async{
+    await FingerPrintAuthentication().checkIfBiometricIsAvailable().then((bool hasBiometric) async {      
+      if(hasBiometric) {        
+        await FingerPrintAuthentication().authenticateUserWithFingerPrint().then((bool isAuthenticated){
+        if(isAuthenticated) 
+          Navigator.of(context).pushNamed('/alterEntry', arguments: profileDatas);
+        });
+      } else {
+        Navigator.of(context).pushNamed('/alterEntry', arguments: profileDatas);        
+      }
+    });
+    
+  }
+
+  Widget _buildEntryInteration(documentID, title, account, username, password){
     Map<String, dynamic> profileDatas = {"id": documentID, "title": title, "account":  account, "username": username, "password": password};
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
         onTap: (){
-          Navigator.of(context).pushNamed('/alterProfile', arguments: profileDatas);
+          _authenticateFingerprint(profileDatas);          
         },
-        child: _buildProfileContainer(title, account)
+        child: _buildEntryContainer(title, account)
       ),
     );
   }
 
-  Widget _buildProfileContainer(title, account){
+  Widget _buildEntryContainer(title, account){
     return Container(                
       height: 80,
       decoration: BoxDecoration(
@@ -172,7 +195,7 @@ class ProfilesListState extends State<ProfilesList>{
   Widget _buildFloatActionButton(){
     return FloatingActionButton(
       onPressed: (){
-        Navigator.of(context).pushNamed('/createProfile');
+        Navigator.of(context).pushNamed('/createEntry');
       },
       backgroundColor: ColorConverter().firstButtonGradient(),
       child: Icon(
