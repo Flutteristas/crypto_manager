@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
 
-class AlterProfile extends StatefulWidget{
+class AlterEntry extends StatefulWidget{
   @override
-  State<StatefulWidget> createState() => AlterProfileState();
+  State<StatefulWidget> createState() => AlterEntryState();
 }
 
-class AlterProfileState extends State<AlterProfile>{
+class AlterEntryState extends State<AlterEntry>{
 
   final formKey = GlobalKey<FormState>();
 
@@ -36,15 +36,15 @@ class AlterProfileState extends State<AlterProfile>{
         "password": _password
       };
 
-      await AuthProvider().updateCryptoProfile(datasToUpdate).then((bool isUpdated){
+      await AuthProvider().updateCryptoEntry(datasToUpdate).then((bool isUpdated){
         if(isUpdated){
-          _alertProfileCreated(); 
+          _alertEntryCreated(); 
         }
       });      
     }
   }
 
-  void _alertProfileCreated(){
+  void _alertEntryCreated(){
     Future.delayed(Duration(seconds: 1), (){
       showDialog(
         context: context,
@@ -57,7 +57,7 @@ class AlterProfileState extends State<AlterProfile>{
               size: 50,
             ),
             content: Text(
-              'Profile updated',
+              'Entry updated',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white
@@ -90,7 +90,7 @@ class AlterProfileState extends State<AlterProfile>{
 
     return Scaffold(
       appBar: _buildAppBar(),
-      body: _buildCreateProfileLayout(),
+      body: _buildCreateEntryLayout(),
       resizeToAvoidBottomInset: false,
     );
   }
@@ -98,13 +98,13 @@ class AlterProfileState extends State<AlterProfile>{
   Widget _buildAppBar(){
     return AppBar(
       title: Text(
-        'Update Profile',
+        'Update Entry',
       ),
       centerTitle: true,
     );
   }
 
-  Widget _buildCreateProfileLayout(){
+  Widget _buildCreateEntryLayout(){
     return Container(
       margin: EdgeInsets.all(24),
       child: Form(
@@ -116,8 +116,8 @@ class AlterProfileState extends State<AlterProfile>{
             _buildFormField('Account', 'Account can\'t be empty', profileDatas["account"]),
             _buildFormField('Username', 'Username can\'t be empty', profileDatas["username"]),
             _buildPasswordField('Password', 'Password can\'t be empty', profileDatas["password"]),
-            _buildCreateProfileButton(),
-            _buildDeleteProfileButton(),
+            _buildCreateEntryButton(),
+            _buildDeleteEntryButton(),
           ],
         ),
       ),
@@ -197,7 +197,7 @@ class AlterProfileState extends State<AlterProfile>{
     );
   }
 
-  Widget _buildCreateProfileButton(){
+  Widget _buildCreateEntryButton(){
     return Container(
       height: 50,
       margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -222,7 +222,7 @@ class AlterProfileState extends State<AlterProfile>{
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              'Update Profile',
+              'Update Entry',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18
@@ -234,13 +234,13 @@ class AlterProfileState extends State<AlterProfile>{
     );
   }
 
-  Widget _buildDeleteProfileButton(){
+  Widget _buildDeleteEntryButton(){
     return Container(
       height: 50,
       margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _deleteProfile();
+          _deleteEntry();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
@@ -252,7 +252,7 @@ class AlterProfileState extends State<AlterProfile>{
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              'Delete Profile',
+              'Delete Entry',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18
@@ -264,15 +264,15 @@ class AlterProfileState extends State<AlterProfile>{
     );
   }
 
-  void _deleteProfile() async{
-    await AuthProvider().deleteCryptoProfile(profileDatas["id"]).then((bool isDeleted){
+  void _deleteEntry() async{
+    await AuthProvider().deleteCryptoEntry(profileDatas["id"]).then((bool isDeleted){
       if(isDeleted){
-        _alertProfileDeleted();
+        _alertEntryDeleted();
       }
     });
   }
 
-  void _alertProfileDeleted(){
+  void _alertEntryDeleted(){
     Future.delayed(Duration(seconds: 1), (){
       showDialog(
         context: context,
@@ -285,7 +285,7 @@ class AlterProfileState extends State<AlterProfile>{
               size: 50,
             ),
             content: Text(
-              'Profile deleted',
+              'Entry deleted',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white

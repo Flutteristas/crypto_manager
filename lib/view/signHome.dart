@@ -23,7 +23,7 @@ class SignHomeState extends State<SignHome> {
 
       await AuthProvider().signInEmail(_email, _password).then((FirebaseUser user){
         if(user.uid != null){
-          Navigator.of(context).pushNamed('/profilesList');
+          Navigator.of(context).pushNamed('/entriesList');
         }
       }); 
     }

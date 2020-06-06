@@ -60,11 +60,11 @@ class AuthProvider {
     return true;
   }
 
-  Future<bool> signNewCryptoProfile(title, account, username, password) async{
+  Future<bool> signNewCryptoEntry(title, account, username, password) async{
     final FirebaseUser currentUser = await auth.currentUser();
     String userUID = currentUser.uid;
 
-    await firestore.collection('profiles').document().setData({
+    await firestore.collection('entries').document().setData({
       "uid": userUID,
       "title": title,
       "account": account,
@@ -75,13 +75,13 @@ class AuthProvider {
     return true;
   }
 
-  Future<bool> deleteCryptoProfile(String documentID) async{
-    await firestore.collection("profiles").document(documentID).delete();
+  Future<bool> deleteCryptoEntry(String documentID) async{
+    await firestore.collection('entries').document(documentID).delete();
     return true;
   }
 
-  Future<bool> updateCryptoProfile(Map<String, dynamic> profileDatas) async{
-    await firestore.collection("profiles").document(profileDatas["id"]).updateData({
+  Future<bool> updateCryptoEntry(Map<String, dynamic> profileDatas) async{
+    await firestore.collection("entries").document(profileDatas["id"]).updateData({
       "title": profileDatas["title"],
       "account": profileDatas["account"],
       "username": profileDatas["username"],
