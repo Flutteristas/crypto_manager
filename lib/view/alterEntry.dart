@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/cryptoRandomString.dart';
 
 class AlterEntry extends StatefulWidget{
   @override
@@ -14,10 +15,12 @@ class AlterEntryState extends State<AlterEntry>{
   String _title;
   String _account;
   String _username;
-  String _password;
+  String _password;  
 
   Map<String, dynamic> profileDatas;
   Map<String, dynamic> datasToUpdate;
+
+  TextEditingController _passwordController = new TextEditingController();
 
   bool hidePassword = true;
 
@@ -87,6 +90,7 @@ class AlterEntryState extends State<AlterEntry>{
   @override
   Widget build(BuildContext context) {    
     profileDatas = ModalRoute.of(context).settings.arguments as Map<String, dynamic>;
+    _passwordController.text = profileDatas["password"];
 
     return Scaffold(
       appBar: _buildAppBar(),
@@ -95,6 +99,7 @@ class AlterEntryState extends State<AlterEntry>{
     );
   }
 
+  
   Widget _buildAppBar(){
     return AppBar(
       title: Text(
@@ -115,7 +120,7 @@ class AlterEntryState extends State<AlterEntry>{
             _buildFormField('Title', 'Title can\'t be empty', profileDatas["title"]),
             _buildFormField('Account', 'Account can\'t be empty', profileDatas["account"]),
             _buildFormField('Username', 'Username can\'t be empty', profileDatas["username"]),
-            _buildPasswordField('Password', 'Password can\'t be empty', profileDatas["password"]),
+            _buildPasswordField('Password', 'Password can\'t be empty'),
             _buildCreateEntryButton(),
             _buildDeleteEntryButton(),
           ],
@@ -154,7 +159,7 @@ class AlterEntryState extends State<AlterEntry>{
     );
   }
 
-  Widget _buildPasswordField(String label, String error, String initialData){
+  Widget _buildPasswordField(String label, String error){
     return Container(
       margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
       child: Row(
@@ -162,7 +167,7 @@ class AlterEntryState extends State<AlterEntry>{
           Expanded(
             child: TextFormField(
               obscureText: hidePassword,
-              initialValue: initialData,
+              controller: _passwordController,
               decoration: InputDecoration(
                 labelText: label,
                 labelStyle: TextStyle(
@@ -173,6 +178,21 @@ class AlterEntryState extends State<AlterEntry>{
               onSaved: (value){
                   _password = value;
               },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            child: GestureDetector(
+              onTap: (){                
+                String encondedPassword = CryptoRandomString().createCryptoRandomString();                     
+                setState(() {
+                  profileDatas["password"] = encondedPassword;
+                });                                  
+              },
+              child: Icon(
+                Icons.replay, 
+                color: Colors.white,
+              ),
             ),
           ),
           Padding(
