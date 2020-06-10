@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/cryptoRandomString.dart';
 
 class CreateEntry extends StatefulWidget{
   @override
@@ -15,6 +16,12 @@ class CreateEntryState extends State<CreateEntry> {
   String _account;
   String _username;
   String _password;
+
+  var _passwordController = new TextEditingController();
+
+  bool hidePassword = true;
+
+  Icon visibleOnOff = Icon(Icons.visibility, color: Colors.white);
 
   void _validateAndSave() async{
     final form = formKey.currentState;
@@ -136,21 +143,58 @@ class CreateEntryState extends State<CreateEntry> {
 
   Widget _buildPasswordField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),      
-      child: TextFormField(
-        obscureText: true,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            color: Colors.white
-          ),        
-        ),
-        validator: (value) => value.isEmpty ? error : null,
-        onSaved: (value){
-          if (label == 'Password'){
-            _password = value;
-          }
-        },
+      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: TextFormField(
+              obscureText: hidePassword,
+              controller: _passwordController,
+              decoration: InputDecoration(
+                labelText: label,
+                labelStyle: TextStyle(
+                  color: Colors.white
+                ),
+              ),
+              validator: (value) => value.isEmpty ? error : null,
+              onSaved: (value){
+                  _password = value;
+              },
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            child: GestureDetector(
+              onTap: (){                
+                String encondedPassword = CryptoRandomString().createCryptoRandomString();
+                setState(() {
+                  _passwordController.text = encondedPassword;
+                });
+              },
+              child: Icon(
+                Icons.replay, 
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            child: GestureDetector(
+              onTap: (){
+                setState(() {
+                  if(hidePassword == false){
+                    hidePassword = true;
+                    visibleOnOff = Icon(Icons.visibility, color: Colors.white);
+                  } else {
+                    hidePassword = false;
+                    visibleOnOff = Icon(Icons.visibility_off, color: Colors.white);
+                  }                
+                });
+              },
+              child: visibleOnOff
+            ),
+          ),
+        ],
       ),
     );
   }
