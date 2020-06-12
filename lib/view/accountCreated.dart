@@ -63,7 +63,7 @@ class AccountCreatedState extends State<AccountCreated> {
       height: 50,
       child: RaisedButton(
         onPressed: (){          
-          Navigator.of(context).pushNamed('/profilesList');
+          Navigator.of(context).pushNamed('/entriesList');
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
