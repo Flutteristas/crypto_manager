@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 
 class AccountCreated extends StatefulWidget{
   
@@ -51,7 +52,7 @@ class AccountCreatedState extends State<AccountCreated> {
         'You\'re all set',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 24,
+          fontSize: SizeConfig.safeBlockVertical * 2,
           color: ColorConverter().fieldTextColor()
         ),
       ) 
@@ -60,16 +61,16 @@ class AccountCreatedState extends State<AccountCreated> {
 
   Widget _buildConfirmationButton(){
     return Container(
-      height: 50,
+      height: SizeConfig.blockSizeVertical * 4,
       child: RaisedButton(
         onPressed: (){          
           Navigator.of(context).pushNamed('/entriesList');
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
         child: Ink(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(32),
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6),
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -84,7 +85,8 @@ class AccountCreatedState extends State<AccountCreated> {
             child: Text(
               'Start Using App',
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 1.5
               ),
             ),
           ),

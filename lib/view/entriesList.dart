@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 import 'package:password_manager/utils/fingerAuth.dart';
 
 class EntriesList extends StatefulWidget{
@@ -12,17 +13,25 @@ class EntriesList extends StatefulWidget{
 class EntriesListState extends State<EntriesList>{
 
   String userUID;
+  bool isLoaded = false;
 
   void _getUserUID() async{
     await AuthProvider().userID().then((String user){
       userUID = user;
     });
+    isLoaded = true;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    _getUserUID();  
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {        
-    _getUserUID();
-    return WillPopScope(
+    return !isLoaded ? Center(child: CircularProgressIndicator()) : WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
         body: _buildListBody(),
@@ -58,7 +67,7 @@ class EntriesListState extends State<EntriesList>{
               'CRYPTO MANAGER',
               style: TextStyle(
                 color: ColorConverter().firstButtonGradient().withOpacity(0.8),
-                fontSize: 24
+                fontSize: SizeConfig.safeBlockVertical * 2
               ),
             )
           ),          
@@ -79,11 +88,13 @@ class EntriesListState extends State<EntriesList>{
           leading: Icon(
             Icons.person,
             color: ColorConverter().firstButtonGradient().withOpacity(0.8),
+            size: SizeConfig.blockSizeVertical * 2,
           ),
           title: Text(
             'Account',
             style: TextStyle(
               color: ColorConverter().firstButtonGradient().withOpacity(0.8),
+              fontSize: SizeConfig.blockSizeVertical * 1.5
             ),
           ),
         ),
@@ -106,11 +117,13 @@ class EntriesListState extends State<EntriesList>{
           leading: Icon(
             Icons.exit_to_app, 
             color: Colors.red,
+            size: SizeConfig.blockSizeVertical * 2,
           ),
           title: Text(
             'Logout', 
             style: TextStyle(
-              color: Colors.red
+              color: Colors.red,
+              fontSize: SizeConfig.blockSizeVertical * 1.5
             ),
           ),
         ),
