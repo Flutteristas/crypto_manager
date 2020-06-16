@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 
 class SignUp extends StatefulWidget{
   @override
@@ -64,7 +65,7 @@ class SignUpState extends State<SignUp>{
       child: TextFormField(
         decoration: InputDecoration(
           labelText: 'Email',
-          labelStyle: TextStyle(color: Colors.white),
+          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
           prefixIcon: Icon(Icons.email, color: Colors.white),
         ),
         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
@@ -80,7 +81,7 @@ class SignUpState extends State<SignUp>{
       obscureText: true,      
       decoration: InputDecoration(
         labelText: 'Password',
-        labelStyle: TextStyle(color: Colors.white),
+        labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
         prefixIcon: Icon(Icons.lock, color: Colors.white),
       ),
       validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
@@ -97,7 +98,7 @@ class SignUpState extends State<SignUp>{
         obscureText: true,
         decoration: InputDecoration(
           labelText: 'Confirm Password',
-          labelStyle: TextStyle(color: Colors.white),
+          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
           prefixIcon: Icon(Icons.lock, color: Colors.white),
         ),
         validator: (value) => value.isEmpty ? 'Confirmed Password can\'t be empty' : null,
@@ -112,16 +113,16 @@ class SignUpState extends State<SignUp>{
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 64, 0, 0),
       child: Container(
-        height: 50,
+        height: SizeConfig.blockSizeVertical * 4,
         child: RaisedButton(
           onPressed: (){
             _validateAndSave();
           },
           padding: EdgeInsets.all(0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
           child: Ink(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
+              borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6),
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -136,7 +137,8 @@ class SignUpState extends State<SignUp>{
               child: Text(
                 'Sign Up',
                 style: TextStyle(
-                  color: Colors.white
+                  color: Colors.white,
+                  fontSize: SizeConfig.blockSizeVertical * 1.5
                 ),
               ),
             ),
