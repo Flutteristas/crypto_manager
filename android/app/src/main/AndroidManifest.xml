@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="password_manager"
+        android:label="Crypto Manager"
         android:icon="@mipmap/ic_launcher">        
         <activity
             android:name=".MainActivity"
