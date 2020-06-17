@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 import 'package:password_manager/utils/cryptoRandomString.dart';
 
 class AlterEntry extends StatefulWidget{
@@ -57,13 +58,14 @@ class AlterEntryState extends State<AlterEntry>{
             title: Icon(
               Icons.check_circle,
               color: ColorConverter().firstButtonGradient(),
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'Entry updated',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -76,7 +78,8 @@ class AlterEntryState extends State<AlterEntry>{
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )
@@ -111,7 +114,7 @@ class AlterEntryState extends State<AlterEntry>{
 
   Widget _buildCreateEntryLayout(){
     return Container(
-      margin: EdgeInsets.all(24),
+      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -131,13 +134,14 @@ class AlterEntryState extends State<AlterEntry>{
 
   Widget _buildFormField(String label, String error, String initialData){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: TextFormField(
         initialValue: initialData,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: Colors.white
+            color: Colors.white,
+            fontSize: SizeConfig.blockSizeVertical * 2.0
           ),        
         ),
         validator: (value) => value.isEmpty ? error : null,
@@ -161,7 +165,7 @@ class AlterEntryState extends State<AlterEntry>{
 
   Widget _buildPasswordField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -171,7 +175,8 @@ class AlterEntryState extends State<AlterEntry>{
               decoration: InputDecoration(
                 labelText: label,
                 labelStyle: TextStyle(
-                  color: Colors.white
+                  color: Colors.white,
+                  fontSize: SizeConfig.blockSizeVertical * 2.0
                 ),
               ),
               validator: (value) => value.isEmpty ? error : null,
@@ -181,7 +186,7 @@ class AlterEntryState extends State<AlterEntry>{
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 4.0, 0, 0, 0),
             child: GestureDetector(
               onTap: (){                
                 String encondedPassword = CryptoRandomString().createCryptoRandomString();                     
@@ -196,7 +201,7 @@ class AlterEntryState extends State<AlterEntry>{
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 6.0, 0, 0, 0),
             child: GestureDetector(
               onTap: (){
                 setState(() {
@@ -219,14 +224,14 @@ class AlterEntryState extends State<AlterEntry>{
 
   Widget _buildCreateEntryButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 8.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -237,7 +242,7 @@ class AlterEntryState extends State<AlterEntry>{
                 ColorConverter().secondButtonGradient()
               ],              
             ),
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -245,7 +250,7 @@ class AlterEntryState extends State<AlterEntry>{
               'Update Entry',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),
@@ -256,18 +261,18 @@ class AlterEntryState extends State<AlterEntry>{
 
   Widget _buildDeleteEntryButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _deleteEntry();
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             color: Colors.red,
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -275,7 +280,7 @@ class AlterEntryState extends State<AlterEntry>{
               'Delete Entry',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),
@@ -302,13 +307,14 @@ class AlterEntryState extends State<AlterEntry>{
             title: Icon(
               Icons.check_circle,
               color: ColorConverter().firstButtonGradient(),
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'Entry deleted',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -321,7 +327,8 @@ class AlterEntryState extends State<AlterEntry>{
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )

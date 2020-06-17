@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 
 class AccountSettings extends StatefulWidget{
   @override
@@ -43,13 +44,14 @@ class AccountSettingsState extends State<AccountSettings>{
             title: Icon(
               Icons.check_circle,
               color: ColorConverter().firstButtonGradient(),
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'User updated',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -61,7 +63,8 @@ class AccountSettingsState extends State<AccountSettings>{
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )
@@ -86,7 +89,7 @@ class AccountSettingsState extends State<AccountSettings>{
 
   Widget _buildAccountSettings(){
     return Container(
-      margin: EdgeInsets.all(32),
+      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
       child: Form(
         key: formkey,
         child: Column(
@@ -104,12 +107,13 @@ class AccountSettingsState extends State<AccountSettings>{
 
   Widget _buildFormField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: Colors.white
+            color: Colors.white,
+            fontSize: SizeConfig.blockSizeVertical * 2.0
           ),        
         ),
         validator: (value) => value.isEmpty ? error : null,
@@ -124,14 +128,14 @@ class AccountSettingsState extends State<AccountSettings>{
 
   Widget _buildChangePasswordButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){       
           Navigator.of(context).pushNamed('/changePassword');
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -142,7 +146,7 @@ class AccountSettingsState extends State<AccountSettings>{
                 ColorConverter().secondButtonGradient()
               ],              
             ),
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -150,7 +154,7 @@ class AccountSettingsState extends State<AccountSettings>{
               'Change Password',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),
@@ -161,14 +165,14 @@ class AccountSettingsState extends State<AccountSettings>{
 
   Widget _buildUpdateButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -179,15 +183,15 @@ class AccountSettingsState extends State<AccountSettings>{
                 ColorConverter().secondButtonGradient()
               ],              
             ),
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
             child: Text(
-              'Update Account',
+              'Update Email',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),
@@ -198,18 +202,18 @@ class AccountSettingsState extends State<AccountSettings>{
 
   Widget _buildDeleteButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _deleteAccount();
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             color: Colors.red,
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -217,7 +221,7 @@ class AccountSettingsState extends State<AccountSettings>{
               'Delete Account',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),

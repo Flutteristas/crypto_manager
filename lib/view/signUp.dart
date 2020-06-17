@@ -42,7 +42,7 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildBody(){
     return Container(
-      margin: EdgeInsets.all(32),
+      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -61,11 +61,11 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildEmailField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 24, 0, 24),
+      padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.0, 0, SizeConfig.blockSizeVertical * 3.0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: 'Email',
-          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
+          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0),
           prefixIcon: Icon(Icons.email, color: Colors.white),
         ),
         validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,
@@ -81,7 +81,7 @@ class SignUpState extends State<SignUp>{
       obscureText: true,      
       decoration: InputDecoration(
         labelText: 'Password',
-        labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
+        labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0),
         prefixIcon: Icon(Icons.lock, color: Colors.white),
       ),
       validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
@@ -93,12 +93,12 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildConfirmPasswordField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.0, 0, 0),
       child: TextFormField(
         obscureText: true,
         decoration: InputDecoration(
           labelText: 'Confirm Password',
-          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5),
+          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0),
           prefixIcon: Icon(Icons.lock, color: Colors.white),
         ),
         validator: (value) => value.isEmpty ? 'Confirmed Password can\'t be empty' : null,
@@ -111,18 +111,18 @@ class SignUpState extends State<SignUp>{
 
   Widget _buildSignUpButton(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 64, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 8.0, 0, 0),
       child: Container(
-        height: SizeConfig.blockSizeVertical * 4,
+        height: SizeConfig.blockSizeVertical * 5.5,
         child: RaisedButton(
           onPressed: (){
             _validateAndSave();
           },
           padding: EdgeInsets.all(0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
           child: Ink(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6),
+              borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0),
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -138,7 +138,7 @@ class SignUpState extends State<SignUp>{
                 'Sign Up',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeVertical * 1.5
+                  fontSize: SizeConfig.blockSizeVertical * 2.0
                 ),
               ),
             ),
