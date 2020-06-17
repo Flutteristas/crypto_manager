@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 import 'package:password_manager/utils/cryptoRandomString.dart';
 
 class CreateEntry extends StatefulWidget{
@@ -45,13 +46,14 @@ class CreateEntryState extends State<CreateEntry> {
             title: Icon(
               Icons.check_circle,
               color: ColorConverter().firstButtonGradient(),
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'Entry added',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -64,7 +66,8 @@ class CreateEntryState extends State<CreateEntry> {
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )
@@ -95,7 +98,7 @@ class CreateEntryState extends State<CreateEntry> {
 
   Widget _buildCreateEntryLayout(){
     return Container(
-      margin: EdgeInsets.all(24),
+      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -114,12 +117,13 @@ class CreateEntryState extends State<CreateEntry> {
 
   Widget _buildFormField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: TextFormField(
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: Colors.white
+            color: Colors.white,
+            fontSize: SizeConfig.blockSizeVertical * 2.0
           ),        
         ),
         validator: (value) => value.isEmpty ? error : null,
@@ -143,7 +147,7 @@ class CreateEntryState extends State<CreateEntry> {
 
   Widget _buildPasswordField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -153,7 +157,8 @@ class CreateEntryState extends State<CreateEntry> {
               decoration: InputDecoration(
                 labelText: label,
                 labelStyle: TextStyle(
-                  color: Colors.white
+                  color: Colors.white,
+                  fontSize: SizeConfig.blockSizeVertical * 2.0
                 ),
               ),
               validator: (value) => value.isEmpty ? error : null,
@@ -163,7 +168,7 @@ class CreateEntryState extends State<CreateEntry> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 4.0, 0, 0, 0),
             child: GestureDetector(
               onTap: (){                
                 String encondedPassword = CryptoRandomString().createCryptoRandomString();
@@ -178,7 +183,7 @@ class CreateEntryState extends State<CreateEntry> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.fromLTRB(32, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 6.0, 0, 0, 0),
             child: GestureDetector(
               onTap: (){
                 setState(() {
@@ -201,14 +206,14 @@ class CreateEntryState extends State<CreateEntry> {
 
   Widget _buildCreateEntryButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 8.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -219,7 +224,7 @@ class CreateEntryState extends State<CreateEntry> {
                 ColorConverter().secondButtonGradient()
               ],              
             ),
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -227,7 +232,7 @@ class CreateEntryState extends State<CreateEntry> {
               'Add Entry',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:password_manager/Firebase/dbController.dart';
 import 'package:password_manager/utils/ColorConverter.dart';
+import 'package:password_manager/utils/appSize.dart';
 
 class ChangePassword extends StatefulWidget{
   @override
@@ -40,13 +41,14 @@ class ChangePasswordState extends State<ChangePassword>{
             title: Icon(
               Icons.check_circle,
               color: ColorConverter().firstButtonGradient(),
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'Password Updated',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -59,7 +61,8 @@ class ChangePasswordState extends State<ChangePassword>{
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )
@@ -80,13 +83,14 @@ class ChangePasswordState extends State<ChangePassword>{
             title: Icon(
               Icons.error,
               color: Colors.red,
-              size: 50,
+              size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
               'Password Don\'t Match',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
             backgroundColor: ColorConverter().backgroundColor(),
@@ -98,7 +102,8 @@ class ChangePasswordState extends State<ChangePassword>{
                 child: Text(
                   'Confirm',
                   style: TextStyle(
-                    color: ColorConverter().firstButtonGradient()
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
                   ),
                 ),
               )
@@ -119,7 +124,7 @@ class ChangePasswordState extends State<ChangePassword>{
   
   Widget _buildChangePasswordLayout(){
     return Container(
-      margin: EdgeInsets.all(24),
+      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
       child: Form(
         key: formKey,
         child: Column(
@@ -136,13 +141,14 @@ class ChangePasswordState extends State<ChangePassword>{
 
   Widget _buildFormField(String label, String error){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 32, 0, 0),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.5, 0, 0),
       child: TextFormField(
         obscureText: true,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(
-            color: Colors.white
+            color: Colors.white,
+            fontSize: SizeConfig.blockSizeVertical * 2.0
           ),        
         ),
         validator: (value) => value.isEmpty ? error : null,
@@ -160,14 +166,14 @@ class ChangePasswordState extends State<ChangePassword>{
 
   Widget _buildChangePasswordButton(){
     return Container(
-      height: 50,
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      height: SizeConfig.blockSizeVertical * 5.5,
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
           _validateAndSave();      
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -178,7 +184,7 @@ class ChangePasswordState extends State<ChangePassword>{
                 ColorConverter().secondButtonGradient()
               ],              
             ),
-            borderRadius: BorderRadius.circular(32)
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)
           ),
           child: Container(
             alignment: Alignment.center,
@@ -186,7 +192,7 @@ class ChangePasswordState extends State<ChangePassword>{
               'Change Password',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 18
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),

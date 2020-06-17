@@ -38,7 +38,7 @@ class SignHomeState extends State<SignHome> {
       child: Scaffold(      
         resizeToAvoidBottomPadding: false,
         body: Container(   
-          margin: EdgeInsets.all(32),             
+          margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),             
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,                                            
             children: <Widget>[
@@ -55,8 +55,8 @@ class SignHomeState extends State<SignHome> {
     return Text(
       'CRYPTO MANAGER',
       style: TextStyle(
-        fontSize: SizeConfig.safeBlockVertical * 2, 
-        letterSpacing: SizeConfig.safeBlockHorizontal * 3,
+        fontSize: SizeConfig.safeBlockVertical * 3.0, 
+        letterSpacing: SizeConfig.safeBlockHorizontal * 2.0,
         color: ColorConverter().firstButtonGradient().withOpacity(0.8),
       ),        
     );
@@ -85,7 +85,7 @@ class SignHomeState extends State<SignHome> {
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.email, color: Colors.white),
         labelText: 'Email',
-        labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5)
+        labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0)
       ),          
       validator: (value) => value.isEmpty ? 'Email can\'t be empty' : null,    
       onSaved: (value) => _email = value,
@@ -94,7 +94,7 @@ class SignHomeState extends State<SignHome> {
 
   Widget _buildPasswordField(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.0, 0, 0),
       child: TextFormField(
         maxLines: 1,
         maxLength: 16,
@@ -102,7 +102,7 @@ class SignHomeState extends State<SignHome> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.lock, color: Colors.white),
           labelText: 'Password',
-          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 1.5)
+          labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0)
         ),
         validator: (value) => value.isEmpty ? 'Password can\'t be empty' : null,
         onSaved: (value) => _password = value,
@@ -112,18 +112,18 @@ class SignHomeState extends State<SignHome> {
 
   Widget _buildLoginButton(){
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+      padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: Container(
-        height: SizeConfig.blockSizeVertical * 4,        
+        height: SizeConfig.blockSizeVertical * 5.5,        
         child: RaisedButton(
           onPressed: (){
             _validateAndSave();
           },
           padding: EdgeInsets.all(0),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
           child: Ink(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6),
+              borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0),
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -139,7 +139,7 @@ class SignHomeState extends State<SignHome> {
                 'Login',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: SizeConfig.blockSizeVertical * 1.5
+                  fontSize: SizeConfig.blockSizeVertical * 2.0
                 ),
               ),
             ),
@@ -151,18 +151,18 @@ class SignHomeState extends State<SignHome> {
 
   Widget _buildSignUpRow(){
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 24, 0, 0), 
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.0, 0, 0), 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
             'Don\'t have an account?',
             style: TextStyle(
-              fontSize: SizeConfig.blockSizeVertical * 1.3
+              fontSize: SizeConfig.blockSizeVertical * 1.8
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 2.0, 0, 0, 0),
             child: GestureDetector(
               onTap: (){
                 Navigator.of(context).pushNamed('/signUp');
@@ -172,7 +172,7 @@ class SignHomeState extends State<SignHome> {
                 style: TextStyle(
                   color: ColorConverter().firstButtonGradient(),
                   fontWeight: FontWeight.bold,
-                  fontSize: SizeConfig.blockSizeVertical * 1.3
+                  fontSize: SizeConfig.blockSizeVertical * 1.8
                 ),
               ),
             ),

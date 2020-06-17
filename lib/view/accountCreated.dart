@@ -22,7 +22,7 @@ class AccountCreatedState extends State<AccountCreated> {
   Widget _buildLayout(){
     return Center(
       child: Container(
-        margin: EdgeInsets.all(24),
+        margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
         child: Column(    
           mainAxisAlignment: MainAxisAlignment.start,  
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,19 +40,19 @@ class AccountCreatedState extends State<AccountCreated> {
     return Icon(
       Icons.check_circle_outline,
       color: ColorConverter().firstButtonGradient(),
-      size: 120,
+      size: SizeConfig.blockSizeVertical * 15.0,
     );
   }
 
   Widget _buildConfirmationInfo(){
     return Container(
       alignment: Alignment.center,
-      margin: EdgeInsets.fromLTRB(0, 24, 0, 56),
+      margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 2.0, 0, SizeConfig.blockSizeVertical * 10.0),
       child: Text(
         'You\'re all set',
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: SizeConfig.safeBlockVertical * 2,
+          fontSize: SizeConfig.safeBlockVertical * 3.0,
           color: ColorConverter().fieldTextColor()
         ),
       ) 
@@ -61,16 +61,16 @@ class AccountCreatedState extends State<AccountCreated> {
 
   Widget _buildConfirmationButton(){
     return Container(
-      height: SizeConfig.blockSizeVertical * 4,
+      height: SizeConfig.blockSizeVertical * 5.0,
       child: RaisedButton(
         onPressed: (){          
           Navigator.of(context).pushNamed('/entriesList');
         },
         padding: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
         child: Ink(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6),
+            borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0),
             gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
@@ -86,7 +86,7 @@ class AccountCreatedState extends State<AccountCreated> {
               'Start Using App',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: SizeConfig.blockSizeVertical * 1.5
+                fontSize: SizeConfig.blockSizeVertical * 2.0
               ),
             ),
           ),

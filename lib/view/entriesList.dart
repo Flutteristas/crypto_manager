@@ -67,7 +67,7 @@ class EntriesListState extends State<EntriesList>{
               'CRYPTO MANAGER',
               style: TextStyle(
                 color: ColorConverter().firstButtonGradient().withOpacity(0.8),
-                fontSize: SizeConfig.safeBlockVertical * 2
+                fontSize: SizeConfig.safeBlockVertical * 3.0
               ),
             )
           ),          
@@ -88,13 +88,13 @@ class EntriesListState extends State<EntriesList>{
           leading: Icon(
             Icons.person,
             color: ColorConverter().firstButtonGradient().withOpacity(0.8),
-            size: SizeConfig.blockSizeVertical * 2,
+            size: SizeConfig.blockSizeVertical * 2.5,
           ),
           title: Text(
             'Account',
             style: TextStyle(
               color: ColorConverter().firstButtonGradient().withOpacity(0.8),
-              fontSize: SizeConfig.blockSizeVertical * 1.5
+              fontSize: SizeConfig.blockSizeVertical * 2.0
             ),
           ),
         ),
@@ -117,13 +117,13 @@ class EntriesListState extends State<EntriesList>{
           leading: Icon(
             Icons.exit_to_app, 
             color: Colors.red,
-            size: SizeConfig.blockSizeVertical * 2,
+            size: SizeConfig.blockSizeVertical * 2.5,
           ),
           title: Text(
             'Logout', 
             style: TextStyle(
               color: Colors.red,
-              fontSize: SizeConfig.blockSizeVertical * 1.5
+              fontSize: SizeConfig.blockSizeVertical * 2.0
             ),
           ),
         ),
@@ -171,7 +171,7 @@ class EntriesListState extends State<EntriesList>{
   Widget _buildEntryInteration(documentID, title, account, username, password){
     Map<String, dynamic> profileDatas = {"id": documentID, "title": title, "account":  account, "username": username, "password": password};
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(SizeConfig.blockSizeVertical * 2.0),
       child: GestureDetector(
         onTap: (){
           _authenticateFingerprint(profileDatas);          
@@ -183,10 +183,10 @@ class EntriesListState extends State<EntriesList>{
 
   Widget _buildEntryContainer(title, account){
     return Container(                
-      height: 80,
+      height: SizeConfig.blockSizeVertical * 8.5,
       decoration: BoxDecoration(
         color: Colors.transparent,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 5.0),
         border: Border.all(
           color: ColorConverter().firstButtonGradient()
         ),
