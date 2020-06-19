@@ -31,10 +31,10 @@ class EntriesListState extends State<EntriesList>{
 
   @override
   Widget build(BuildContext context) {        
-    return !isLoaded ? Center(child: CircularProgressIndicator()) : WillPopScope(
+    return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: _buildListBody(),
+        body: !isLoaded ? Container(child: Center(child: CircularProgressIndicator())) : _buildListBody(),
         drawer: _buildDrawer(),
         appBar: AppBar(
           elevation: 0,

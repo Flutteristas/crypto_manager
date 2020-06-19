@@ -14,8 +14,11 @@ class AuthProvider {
 
     final FirebaseUser currentUser = await auth.currentUser();
     assert(user.uid == currentUser.uid);
-
-    return user;
+    if(user.uid == null){
+      return null;
+    } else {
+      return user;
+    }
   }
 
   Future<FirebaseUser> signUpEmail(email, password) async {

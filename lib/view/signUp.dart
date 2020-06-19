@@ -22,13 +22,139 @@ class SignUpState extends State<SignUp>{
       form.save();  
 
       if (_password == _confirmedPassword){
-        await AuthProvider().signUpEmail(_email, _password).then((FirebaseUser user){
-          Navigator.of(context).pushNamed('/accountCreated');
-        });
+        if(_password.length < 6){
+          _passwordInvalidLength();
+        } else {
+          await AuthProvider().signUpEmail(_email, _password).then((FirebaseUser user){
+            Navigator.of(context).pushNamed('/accountCreated');
+          }).catchError((e){
+            _invalidEmail();
+          });
+        }
       } else {
-        print('User wasn\'t created');
+        _passwordsDontMatch();
       }  
     }
+  }
+
+  void _invalidEmail(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical * 2)),
+            backgroundColor: ColorConverter().backgroundColor(),
+            title: Text(
+              'Invalid values', 
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            content: Text(
+              'Email is invalid',
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context); 
+                },
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical * 1.8
+                  ),
+                )
+              ),
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _passwordsDontMatch(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical * 2)),
+            backgroundColor: ColorConverter().backgroundColor(),
+            title: Text(
+              'Invalid values', 
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            content: Text(
+              'Passwords don\'t match',
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context); 
+                },
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical * 1.8
+                  ),
+                )
+              ),
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _passwordInvalidLength(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical * 2)),
+            backgroundColor: ColorConverter().backgroundColor(),
+            title: Text(
+              'Invalid values', 
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            content: Text(
+              'Password must contain at least 6 characters',
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context); 
+                },
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical * 1.8
+                  ),
+                )
+              ),
+            ],
+          );
+        }
+      );
+    });
   }
 
   @override
@@ -41,19 +167,24 @@ class SignUpState extends State<SignUp>{
 
 
   Widget _buildBody(){
-    return Container(
-      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,                    
-          children: <Widget>[
-            _buildEmailField(),
-            _buildPasswordField(),
-            _buildConfirmPasswordField(),
-            _buildSignUpButton()
-          ],
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
+        child: Padding(
+          padding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,                    
+              children: <Widget>[
+                _buildEmailField(),
+                _buildPasswordField(),
+                _buildConfirmPasswordField(),
+                _buildSignUpButton()
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -23,28 +23,74 @@ class SignHomeState extends State<SignHome> {
       form.save();    
 
       await AuthProvider().signInEmail(_email, _password).then((FirebaseUser user){
-        if(user.uid != null){
-          Navigator.of(context).pushNamed('/entriesList');
-        }
+        Navigator.of(context).pushNamed('/entriesList');        
+      }).catchError((e){
+        _incorrectEmailOrPassword();
       }); 
     }
   }
 
-    @override
+  void _incorrectEmailOrPassword(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical * 2)),
+            backgroundColor: ColorConverter().backgroundColor(),
+            title: Text(
+              'Invalid values', 
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            content: Text(
+              'Email or password invalid',
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context); 
+                },
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical * 1.8
+                  ),
+                )
+              ),
+            ],
+          );
+        }
+      );
+    }); 
+  }
+
+  @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(      
-        resizeToAvoidBottomPadding: false,
-        body: Container(   
-          margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),             
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,                                            
-            children: <Widget>[
-              _homeTitle(),
-              _buildForm(),
-            ],
+        body: Center(
+          child: SingleChildScrollView(
+            child: ConstrainedBox(   
+              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),                           
+              child: Padding(
+                padding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _homeTitle(),
+                    _buildForm(),
+                  ],
+                ),
+              ),
+            ),
           ),
         )
       ),
