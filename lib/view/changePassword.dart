@@ -22,7 +22,7 @@ class ChangePasswordState extends State<ChangePassword>{
       if(_newPassword == _confirmedPassword){
         await AuthProvider().updateAccountPassword(_newPassword).then((bool isUpdated){
           if(isUpdated)
-            _alertProfileCreated();
+            _alertPasswordUpdated();
         });
       } else {
         _alertPasswordsDontMatch();
@@ -31,7 +31,7 @@ class ChangePasswordState extends State<ChangePassword>{
     }
   }
 
-  void _alertProfileCreated(){
+  void _alertPasswordUpdated(){
     Future.delayed(Duration(seconds: 1), (){
       showDialog(
         context: context,
@@ -123,19 +123,28 @@ class ChangePasswordState extends State<ChangePassword>{
   }
   
   Widget _buildChangePasswordLayout(){
-    return Container(
-      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildFormField('New Password', 'New Password can\'t be empty'),
-            _buildFormField('Confirm Password', 'Confirm Password can\'t be empty'),
-            _buildChangePasswordButton(),
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraint){
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 5, 0, SizeConfig.blockSizeHorizontal * 5, 0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            child: IntrinsicHeight(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    _buildFormField('New Password', 'New Password can\'t be empty'),
+                    _buildFormField('Confirm Password', 'Confirm Password can\'t be empty'),
+                    _buildChangePasswordButton(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
     );      
   }
 
@@ -208,6 +217,7 @@ class ChangePasswordState extends State<ChangePassword>{
         'Change Password',
       ),
       centerTitle: true,
+      elevation: 0,
     );
   }
 }

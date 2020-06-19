@@ -34,7 +34,7 @@ class EntriesListState extends State<EntriesList>{
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: !isLoaded ? Container(child: Center(child: CircularProgressIndicator())) : _buildListBody(),
+        body: !isLoaded ? Container(height: 60, child: Center(child: CircularProgressIndicator())) : _buildListBody(),
         drawer: _buildDrawer(),
         appBar: AppBar(
           elevation: 0,
@@ -46,15 +46,13 @@ class EntriesListState extends State<EntriesList>{
   }
 
   Widget _buildListBody(){
-    return SafeArea(          
-      child: Container(          
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            _buildEntriesList(),
-          ],
-        )
-      ),
+    return Container(          
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _buildEntriesList(),
+        ],
+      )
     );
   }
 
