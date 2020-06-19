@@ -76,24 +76,30 @@ class SignHomeState extends State<SignHome> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(      
-        body: Center(
-          child: SingleChildScrollView(
-            child: ConstrainedBox(   
-              constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),                           
-              child: Padding(
-                padding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    _homeTitle(),
-                    _buildForm(),
-                  ],
-                ),
+        body: _buildBody(), 
+      ),
+    );
+  }
+
+  Widget _buildBody(){
+    return LayoutBuilder(
+      builder: (context, constraint){
+        return SingleChildScrollView(                            
+          padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 5, 0, SizeConfig.blockSizeHorizontal * 5, 0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  _homeTitle(),
+                  _buildForm(),
+                ],
               ),
             ),
           ),
-        )
-      ),
+        );
+      }
     );
   }
 
@@ -128,6 +134,7 @@ class SignHomeState extends State<SignHome> {
   Widget _buildEmailField(){
     return TextFormField( 
       maxLines: 1,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.email, color: Colors.white),
         labelText: 'Email',

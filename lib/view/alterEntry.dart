@@ -98,7 +98,6 @@ class AlterEntryState extends State<AlterEntry>{
     return Scaffold(
       appBar: _buildAppBar(),
       body: _buildCreateEntryLayout(),
-      resizeToAvoidBottomInset: false,
     );
   }
 
@@ -109,26 +108,36 @@ class AlterEntryState extends State<AlterEntry>{
         'Update Entry',
       ),
       centerTitle: true,
+      elevation: 0,
     );
   }
 
   Widget _buildCreateEntryLayout(){
-    return Container(
-      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildFormField('Title', 'Title can\'t be empty', profileDatas["title"]),
-            _buildFormField('Account', 'Account can\'t be empty', profileDatas["account"]),
-            _buildFormField('Username', 'Username can\'t be empty', profileDatas["username"]),
-            _buildPasswordField('Password', 'Password can\'t be empty'),
-            _buildCreateEntryButton(),
-            _buildDeleteEntryButton(),
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraint){
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 5, 0, SizeConfig.blockSizeHorizontal * 5, 0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            child: IntrinsicHeight(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    _buildFormField('Title', 'Title can\'t be empty', profileDatas["title"]),
+                    _buildFormField('Account', 'Account can\'t be empty', profileDatas["account"]),
+                    _buildFormField('Username', 'Username can\'t be empty', profileDatas["username"]),
+                    _buildPasswordField('Password', 'Password can\'t be empty'),
+                    _buildCreateEntryButton(),
+                    _buildDeleteEntryButton(),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
     );  
   }
 

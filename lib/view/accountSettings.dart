@@ -84,24 +84,34 @@ class AccountSettingsState extends State<AccountSettings>{
         ),
       ),
       centerTitle: true,
+      elevation: 0,
     );
   }
 
   Widget _buildAccountSettings(){
-    return Container(
-      margin: EdgeInsets.all(SizeConfig.blockSizeVertical * 3.0),
-      child: Form(
-        key: formkey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            _buildFormField('Email', 'Email can\'t be empty'),
-            _buildUpdateButton(),
-            _buildChangePasswordButton(),            
-            _buildDeleteButton()
-          ],
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraint){
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 5, 0, SizeConfig.blockSizeHorizontal * 5, 0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: constraint.maxHeight),
+            child: IntrinsicHeight(
+              child: Form(
+                key: formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    _buildFormField('Email', 'Email can\'t be empty'),
+                    _buildUpdateButton(),
+                    _buildChangePasswordButton(),            
+                    _buildDeleteButton()
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      }
     );
   }
 

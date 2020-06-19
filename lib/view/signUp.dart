@@ -160,32 +160,44 @@ class SignUpState extends State<SignUp>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _buildBody(),
-      resizeToAvoidBottomPadding: false,
+      body: _buildBody(),    
+      appBar: _buildAppBar(),
+    );
+  }
+
+  Widget _buildAppBar(){
+    return AppBar(
+      elevation: 0,
+      backgroundColor: ColorConverter().backgroundColor(),
     );
   }
 
 
   Widget _buildBody(){
-    return SingleChildScrollView(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height),
-        child: Padding(
-          padding: EdgeInsets.all(SizeConfig.blockSizeVertical * 3),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,                    
-              children: <Widget>[
-                _buildEmailField(),
-                _buildPasswordField(),
-                _buildConfirmPasswordField(),
-                _buildSignUpButton()
-              ],
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, constraint){
+          return SingleChildScrollView(    
+            padding: EdgeInsets.fromLTRB(SizeConfig.blockSizeHorizontal * 5, 0, SizeConfig.blockSizeHorizontal * 5, 0),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+              child: IntrinsicHeight(
+                child: Form(
+                  key: formKey,
+                  child: Column(       
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      _buildEmailField(),
+                      _buildPasswordField(),
+                      _buildConfirmPasswordField(),
+                      _buildSignUpButton()
+                    ],
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        }
       ),
     );
   }
@@ -194,6 +206,7 @@ class SignUpState extends State<SignUp>{
     return Padding(
       padding: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 3.0, 0, SizeConfig.blockSizeVertical * 3.0),
       child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           labelText: 'Email',
           labelStyle: TextStyle(color: Colors.white, fontSize: SizeConfig.blockSizeVertical * 2.0),
