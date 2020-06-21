@@ -47,7 +47,7 @@ class AccountSettingsState extends State<AccountSettings>{
               size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
-              'User updated',
+              'Email updated, Please Login Again',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -58,7 +58,7 @@ class AccountSettingsState extends State<AccountSettings>{
             actions: <Widget>[
               FlatButton(
                 onPressed: (){
-                  Navigator.pop(context);
+                  Navigator.of(context).pushNamed('/signHome');
                 },
                 child: Text(
                   'Confirm',
@@ -73,6 +73,56 @@ class AccountSettingsState extends State<AccountSettings>{
         }
       );
     });
+  }
+
+  void _confirmEmailUpdate(){
+    Future.delayed(Duration(seconds: 1), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 2)),
+            content: Text(
+              'Are you sure you want to update your email?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context);                  
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: (){   
+                  Navigator.pop(context);               
+                  _validateAndSave();                  
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      );
+    });    
   }
 
   Widget _buildAppBar(){
@@ -179,7 +229,7 @@ class AccountSettingsState extends State<AccountSettings>{
       margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _validateAndSave();
+          _confirmEmailUpdate();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
@@ -216,7 +266,7 @@ class AccountSettingsState extends State<AccountSettings>{
       margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _deleteAccount();
+          _confirmAccountDelete();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
@@ -242,7 +292,98 @@ class AccountSettingsState extends State<AccountSettings>{
 
   void _deleteAccount() async{
     await AuthProvider().deleteUserAccount().then((bool isDeleted){            
-      Navigator.of(context).pushNamed('/signHome');
+      _accountDeleted();
     });
+  }
+
+  void _confirmAccountDelete(){
+    Future.delayed(Duration(seconds: 1), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 2)),
+            content: Text(
+              'Are you sure you want to delete your account?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context);                  
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: (){   
+                  Navigator.pop(context);               
+                  _deleteAccount();                  
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _accountDeleted(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            title: Icon(
+              Icons.check_circle,
+              color: ColorConverter().firstButtonGradient(),
+              size: SizeConfig.blockSizeVertical * 6.0,
+            ),
+            content: Text(
+              'Account deleted',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.of(context).pushNamed('/signHome');
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              )
+            ],
+          );
+        }
+      );
+    });    
   }
 }

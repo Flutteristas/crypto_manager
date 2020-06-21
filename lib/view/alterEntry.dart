@@ -274,7 +274,7 @@ class AlterEntryState extends State<AlterEntry>{
       margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _deleteEntry();
+          _confirmEntryDelete();
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
@@ -301,13 +301,63 @@ class AlterEntryState extends State<AlterEntry>{
   void _deleteEntry() async{
     await AuthProvider().deleteCryptoEntry(profileDatas["id"]).then((bool isDeleted){
       if(isDeleted){
-        _alertEntryDeleted();
+        _alertEntryDeleted();        
       }
     });
   }
 
-  void _alertEntryDeleted(){
+  void _confirmEntryDelete(){
     Future.delayed(Duration(seconds: 1), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 2)),
+            content: Text(
+              'Are you sure you want to delete this entry?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context);                  
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: (){   
+                  Navigator.pop(context);               
+                  _deleteEntry();                  
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _alertEntryDeleted(){
+    Future.delayed(Duration(seconds: 0), (){
       showDialog(
         context: context,
         barrierDismissible: false,
