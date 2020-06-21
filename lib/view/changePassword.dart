@@ -15,20 +15,117 @@ class ChangePasswordState extends State<ChangePassword>{
   String _newPassword;
   String _confirmedPassword;
 
-  void _validateAndSave() async{
+  void _validateAndSave() async{    
+    await AuthProvider().updateAccountPassword(_newPassword).then((bool isUpdated){    
+      _alertPasswordUpdated();
+    });          
+  }
+
+  void _confirmPasswordUpdate(){
     final form = formKey.currentState;
     if (form.validate()){
       form.save();
+
       if(_newPassword == _confirmedPassword){
-        await AuthProvider().updateAccountPassword(_newPassword).then((bool isUpdated){
-          if(isUpdated)
-            _alertPasswordUpdated();
-        });
-      } else {
+        if(_newPassword.length < 6){      
+          _passwordInvalidLength();  
+        } else {       
+          _alertDialogConfirmPasswordDelete();
+        }
+      } else{
         _alertPasswordsDontMatch();
       }
-      
     }
+  }
+
+  void _passwordInvalidLength(){
+    Future.delayed(Duration(seconds: 0), (){
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeVertical * 2)),
+            backgroundColor: ColorConverter().backgroundColor(),
+            title: Text(
+              'Invalid values', 
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            content: Text(
+              'Password must contain at least 6 characters',
+              style: TextStyle(
+                fontSize: SizeConfig.blockSizeVertical * 1.8
+              ),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context); 
+                },
+                child: Text(
+                  'Try Again',
+                  style: TextStyle(
+                    fontSize: SizeConfig.blockSizeVertical * 1.8
+                  ),
+                )
+              ),
+            ],
+          );
+        }
+      );
+    });
+  }
+
+  void _alertDialogConfirmPasswordDelete(){
+    Future.delayed(Duration(seconds: 1), (){
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context){
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 2)),
+            content: Text(
+              'Are you sure you want to change your password?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: SizeConfig.blockSizeVertical * 2.0
+              ),
+            ),
+            backgroundColor: ColorConverter().backgroundColor(),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: (){
+                  Navigator.pop(context);                  
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: (){            
+                  Navigator.pop(context);
+                  _validateAndSave();                  
+                },
+                child: Text(
+                  'Confirm',
+                  style: TextStyle(
+                    color: ColorConverter().firstButtonGradient(),
+                    fontSize: SizeConfig.blockSizeVertical * 2.0
+                  ),
+                ),
+              ),
+            ],
+          );
+        }
+      );
+    });
   }
 
   void _alertPasswordUpdated(){
@@ -86,7 +183,7 @@ class ChangePasswordState extends State<ChangePassword>{
               size: SizeConfig.blockSizeVertical * 6.0,
             ),
             content: Text(
-              'Password Don\'t Match',
+              'Passwords Don\'t Match',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
@@ -179,7 +276,7 @@ class ChangePasswordState extends State<ChangePassword>{
       margin: EdgeInsets.fromLTRB(0, SizeConfig.blockSizeVertical * 4.0, 0, 0),
       child: RaisedButton(
         onPressed: (){
-          _validateAndSave();      
+          _confirmPasswordUpdate();      
         },
         padding: EdgeInsets.all(0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(SizeConfig.blockSizeHorizontal * 6.0)),
